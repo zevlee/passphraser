@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Passphraser
+Comment=A simple password generator that provides phrases based on a user-supplied wordlist.
+Exec=passphraser
+Terminal=false
+Type=Application
+Icon=passphraser
+Categories=GNOME;GTK;Utility;
+StartupNotify=false
