@@ -1,4 +1,7 @@
 # Passphraser
+
+![Alt text](https://raw.githubusercontent.com/zevlee/passphraser/main/passphraser.svg?token=AOK4M5EIHJJD5RP3M4V3IXTAUSCAQ)
+
 Phrase-based password generator that can use your own list of words. Available on Windows, macOS, and Linux.
 
 Passphraser accepts any text file and treats each line as a possible input. So a text file like this...
