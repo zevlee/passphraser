@@ -1,6 +1,6 @@
 # Passphraser
 
-![Alt text](https://raw.githubusercontent.com/zevlee/passphraser/main/passphraser.svg?token=AOK4M5EIHJJD5RP3M4V3IXTAUSCAQ)
+![Alt text](https://raw.githubusercontent.com/zevlee/passphraser/main/passphraser.svg)
 
 Phrase-based password generator that can use your own list of words. Available on Windows, macOS, and Linux.
 
