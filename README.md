@@ -2,9 +2,7 @@
 
 # Passphraser
 
-Phrase-based password generator that can use your own list of words. Available on Windows, macOS, and Linux.
-
-Passphraser accepts any text file and treats each line as a possible input. So a text file like this...
+Passphraser is a password generator that accepts any text file and treats each line as a possible input. So a text file like this...
 ```
 alpha
 bravo
