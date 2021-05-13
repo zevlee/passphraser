@@ -23,7 +23,7 @@ The included word lists are derived from the EFF's word lists found [here](https
 ### Building on Windows
 1. MSYS2 is needed to build on Windows. [Get it from the MSYS2 website.](https://www.msys2.org/)
 2. Download a copy of this repository, then extract it to your home folder for MSYS2 (Usually ``C:\msys64\home\<user>``).
-3. Go to your folder for MSYS2 (Usually ``C:\msys64``) and run ``mingw32.exe``. The following commands will be executed in the console that appears.
+3. Go to your folder for MSYS2 and run ``mingw32.exe``. The following commands will be executed in the console that appears.
 4. Enter the ``windows`` directory of the extracted repository.
 ```
 cd passphraser/windows
@@ -57,20 +57,20 @@ chmod +x build.sh && ./build.sh
 ```
 
 ### Building on Linux
-
-1. Clone this repository
+1. Ensure PyGObject is installed.
+2. Clone this repository
 ```
 git clone https://github.com/zevlee/passphraser.git
 ```
-2. Enter the ``linux`` directory
+3. Enter the ``linux`` directory
 ```
 cd passphraser/linux
 ```
-3. Run ``bootstrap.sh`` to install pyinstaller via pip if you haven't already. Ensure PyGObject is also installed.
+4. Run ``bootstrap.sh`` to install pyinstaller via pip if you haven't already.
 ```
 chmod +x bootstrap.sh && ./bootstrap.sh
 ```
-4. Run ``build.sh``.
+5. Run ``build.sh``.
 ```
 chmod +x build.sh && ./build.sh
 ```
