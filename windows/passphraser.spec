@@ -14,7 +14,8 @@ a = Analysis(
 		('../wordlists/eff_large.txt', 'wordlists'),
 		('../wordlists/eff_short_1.txt', 'wordlists'),
 		('../wordlists/eff_short_2.txt', 'wordlists'),
-		('../LICENSE', '.')
+		('../LICENSE', '.'),
+		('../VERSION', '.')
 	],
 	hiddenimports=[],
 	hookspath=[],
@@ -38,7 +39,7 @@ exe = EXE(
 	[],
 	exclude_binaries=True,
 	name='passphraser',
-  icon='passphraser.ico',
+	icon='passphraser.ico',
 	debug=False,
 	bootloader_ignore_signals=False,
 	strip=False,

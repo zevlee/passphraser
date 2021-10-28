@@ -2,7 +2,8 @@
 
 app=passphraser
 name="Passphraser"
-version=0.1.0
+
+version=$(cat ../VERSION)
 
 echo "Running pyinstaller..."
 

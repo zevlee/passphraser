@@ -21,6 +21,7 @@ class Fn:
         "+", "=", "{", "[", "}", "]", "|", "\\", ":", ";", "\"", "'", "<", ",",
         ">", ".", "?", "/", " "
     ]
+    version = open(join(dirname(__file__), "..", "VERSION")).read()
 
 
 class Password:
@@ -445,7 +446,7 @@ class AppWindow(Gtk.ApplicationWindow):
             Header(
                 title="Passphraser",
                 subtitle="Phrase-Based Password Generator",
-                version="Version 0.1.0",
+                version="Version " + Fn.version,
                 application=app,
                 window=self
             )
