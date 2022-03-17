@@ -15,25 +15,42 @@ from gi.repository.GdkPixbuf import Pixbuf
 
 class Fn:
 
+    # home directory
     homedir = join(expanduser("~"), ".passphraser")
+    # list of possible symbols to add to password
     symbols = [
-        "~", "`", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "-",
-        "+", "=", "{", "[", "}", "]", "|", "\\", ":", ";", "\"", "'", "<", ",",
-        ">", ".", "?", "/", " "
+        "~", "`", "!", "@",
+        "#", "$", "%", "^",
+        "&", "*", "(", ")",
+        "_", "-", "+", "=",
+        "{", "[", "}", "]",
+        "|", "\\", ":", ";",
+        "\"", "'", "<", ",",
+        ">", ".", "?", "/",
+        " "
     ]
+    # application version
     version = open(join(dirname(__file__), "..", "VERSION")).read()
 
 
 class Password:
 
     def __init__(self, lst, min, max, wrd, sep, cap, num, sym):
+        # word list
         self.lst = open(lst, "r").readlines()
+        # minimum word length
         self.min = min
+        # maximum word length
         self.max = max
+        # number of words
         self.wrd = wrd
+        # separator
         self.sep = sep
+        # capitalize
         self.cap = cap
+        # add number
         self.num = num
+        # add symbol
         self.sym = sym
 
     def form_lexicon(self):
@@ -135,6 +152,7 @@ class Header(Gtk.HeaderBar):
         self.set_subtitle(subtitle)
         self.set_show_close_button(True)
 
+        # create menu
         action = Gio.SimpleAction.new("prefs", None)
         action.connect("activate", self.on_prefs)
         self.app.add_action(action)
@@ -163,6 +181,7 @@ class Header(Gtk.HeaderBar):
             )
         )
         menu_button.set_menu_model(menu)
+        # window decoration layout
         if system() == "Darwin":
             self.set_decoration_layout("close,minimize,maximize:")
             self.pack_start(menu_button)
@@ -171,10 +190,16 @@ class Header(Gtk.HeaderBar):
             self.pack_end(menu_button)
 
     def on_prefs(self, action, param):
+        """
+        Open preferences window
+        """
         prefs = Preferences()
         prefs.present()
 
     def on_about(self, action, param):
+        """
+        Open about dialog window
+        """
         dialog = Gtk.AboutDialog(modal=True)
         dialog.set_position(Gtk.WindowPosition.CENTER)
         file = join(dirname(__file__), "..", "passphraser.svg")
@@ -205,6 +230,7 @@ class Preferences(Gtk.Window):
         self.set_modal(True)
         self.set_keep_above(True)
 
+        # open stored preferences
         with open(join(Fn.homedir, "passphraser.json")) as cfg:
             self.config = loads(cfg.read())
             cfg.close()
@@ -215,6 +241,7 @@ class Preferences(Gtk.Window):
         grid.set_row_spacing(20)
         grid.set_column_spacing(20)
 
+        # list of all symbols
         mode_label = Gtk.Label(halign=Gtk.Align.START)
         mode_label.set_markup("<b>Included Symbols</b>")
         grid.attach(mode_label, 0, 0, 4, 1)
@@ -351,6 +378,19 @@ class Preferences(Gtk.Window):
         self.sp.set_active(self.config[" "])
         grid.attach(self.sp, 0, 9, 1, 1)
 
+        # all symbol options
+        self.symbols = [
+                self.ti, self.gr, self.ex, self.at,
+                self.po, self.do, self.pe, self.ca,
+                self.am, self.ak, self.op, self.cp,
+                self.un, self.hy, self.pl, self.eq,
+                self.oc, self.ob, self.cc, self.cb,
+                self.vl, self.bs, self.co, self.sc,
+                self.dq, self.sq, self.lt, self.cm,
+                self.gt, self.pd, self.qu, self.fs,
+                self.sp
+        ]
+
         deselect_button = Gtk.Button(label="Deselect All")
         deselect_button.connect("clicked", self.on_deselect_clicked)
         grid.attach(deselect_button, 0, 10, 2, 1)
@@ -378,52 +418,31 @@ class Preferences(Gtk.Window):
         self.show_all()
 
     def on_select_clicked(self, button):
-        for sym in [
-                self.ti, self.gr, self.ex, self.at,
-                self.po, self.do, self.pe, self.ca,
-                self.am, self.ak, self.op, self.cp,
-                self.un, self.hy, self.pl, self.eq,
-                self.oc, self.ob, self.cc, self.cb,
-                self.vl, self.bs, self.co, self.sc,
-                self.dq, self.sq, self.lt, self.cm,
-                self.gt, self.pd, self.qu, self.fs,
-                self.sp
-        ]:
+        """
+        Set all symbol options to true
+        """
+        for sym in self.symbols:
             sym.set_active(True)
 
     def on_deselect_clicked(self, button):
-        for sym in [
-                self.ti, self.gr, self.ex, self.at,
-                self.po, self.do, self.pe, self.ca,
-                self.am, self.ak, self.op, self.cp,
-                self.un, self.hy, self.pl, self.eq,
-                self.oc, self.ob, self.cc, self.cb,
-                self.vl, self.bs, self.co, self.sc,
-                self.dq, self.sq, self.lt, self.cm,
-                self.gt, self.pd, self.qu, self.fs,
-                self.sp
-        ]:
+        """
+        Set all symbol options to false
+        """
+        for sym in self.symbols:
             sym.set_active(False)
 
     def on_cancel_clicked(self, button):
+        """
+        Close preferences dialog without saving
+        """
         self.destroy()
 
     def on_save_clicked(self, button):
+        """
+        Save preferences then close dialog
+        """
         with open(join(Fn.homedir, "passphraser.json"), "w") as cfg:
-            for k, v in zip(
-                Fn.symbols,
-                [
-                        self.ti, self.gr, self.ex, self.at,
-                        self.po, self.do, self.pe, self.ca,
-                        self.am, self.ak, self.op, self.cp,
-                        self.un, self.hy, self.pl, self.eq,
-                        self.oc, self.ob, self.cc, self.cb,
-                        self.vl, self.bs, self.co, self.sc,
-                        self.dq, self.sq, self.lt, self.cm,
-                        self.gt, self.pd, self.qu, self.fs,
-                        self.sp
-                ]
-            ):
+            for k, v in zip(Fn.symbols, self.symbols):
                 self.config[k] = v.get_active()
             self.config["dbg"] = self.dbg.get_active()
             cfg.write(dumps(self.config))
@@ -533,6 +552,9 @@ class AppWindow(Gtk.ApplicationWindow):
         self.show_all()
 
     def on_file_clicked(self, widget):
+        """
+        Open dialog to choose word list
+        """
         dialog = Gtk.FileChooserDialog(
             title="Choose the word list",
             parent=None,
@@ -551,6 +573,9 @@ class AppWindow(Gtk.ApplicationWindow):
         dialog.destroy()
 
     def gen_pwd(self):
+        """
+        Gather parameters then generate the password
+        """
         lst = self.lst.get_text()
         min = int(self.min.get_text())
         max = int(self.max.get_text())
@@ -576,6 +601,9 @@ class AppWindow(Gtk.ApplicationWindow):
             cfg.close()
 
     def on_gen_pwd_clicked(self, button):
+        """
+        When generate password is clicked, call `gen_pwd`
+        """
         config = loads(open(join(Fn.homedir, "passphraser.json"), "r").read())
         if not config["dbg"]:
             try:
@@ -606,6 +634,9 @@ class AppWindow(Gtk.ApplicationWindow):
             self.gen_pwd()
 
     def on_reset(self, action, param):
+        """
+        Reset fields to default parameters
+        """
         for k, v in zip(
             ["lst", "min", "max", "wrd", "sep"],
             [self.lst, self.min, self.max, self.wrd, self.sep]
@@ -635,6 +666,7 @@ class Application(Gtk.Application):
 
     def do_startup(self):
         Gtk.Application.do_startup(self)
+        # default parameters
         self.dflt = {
             "lst": join(Fn.homedir, "wordlists", "eff_large.txt"),
             "min": 3,
