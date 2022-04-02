@@ -5,7 +5,6 @@ from os import mkdir, walk
 from os.path import dirname, join, exists, expanduser
 from shutil import copyfile
 from platform import system
-from subprocess import call
 from json import loads, dumps
 from gi import require_version
 require_version("Gtk", "3.0")
@@ -15,8 +14,13 @@ from gi.repository.GdkPixbuf import Pixbuf
 
 class Fn:
 
-    # home directory
-    homedir = join(expanduser("~"), ".passphraser")
+    # config directory
+    if system() == "Darwin":
+        confdir = expanduser(
+            "~/Library/Application Support/me.zevlee.passphraser"
+        )
+    else:
+        confdir = join(GLib.get_user_config_dir(), "passphraser")
     # list of possible symbols to add to password
     symbols = [
         "~", "`", "!", "@",
@@ -74,7 +78,7 @@ class Password:
         # choose a random point to add a number
         num_ind = randbelow(self.wrd + 1)
         sym_ind = randbelow(self.wrd + 1)
-        with open(join(Fn.homedir, "passphraser.json"), "r") as cfg:
+        with open(join(Fn.confdir, "passphraser.json"), "r") as cfg:
             config = loads(cfg.read())
             cfg.close()
         symbols = []
@@ -231,7 +235,7 @@ class Preferences(Gtk.Window):
         self.set_keep_above(True)
 
         # open stored preferences
-        with open(join(Fn.homedir, "passphraser.json")) as cfg:
+        with open(join(Fn.confdir, "passphraser.json")) as cfg:
             self.config = loads(cfg.read())
             cfg.close()
 
@@ -441,7 +445,7 @@ class Preferences(Gtk.Window):
         """
         Save preferences then close dialog
         """
-        with open(join(Fn.homedir, "passphraser.json"), "w") as cfg:
+        with open(join(Fn.confdir, "passphraser.json"), "w") as cfg:
             for k, v in zip(Fn.symbols, self.symbols):
                 self.config[k] = v.get_active()
             self.config["dbg"] = self.dbg.get_active()
@@ -471,7 +475,7 @@ class AppWindow(Gtk.ApplicationWindow):
             )
         )
 
-        with open(join(Fn.homedir, "passphraser.json"), "r") as cfg:
+        with open(join(Fn.confdir, "passphraser.json"), "r") as cfg:
             self.config = loads(cfg.read())
             cfg.close()
 
@@ -564,7 +568,7 @@ class AppWindow(Gtk.ApplicationWindow):
             Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
             Gtk.STOCK_OPEN, Gtk.ResponseType.OK,
         )
-        dialog.set_current_folder(join(Fn.homedir, "wordlists"))
+        dialog.set_current_folder(join(Fn.confdir, "wordlists"))
         dialog.set_position(Gtk.WindowPosition.CENTER)
         response = dialog.run()
         if response == Gtk.ResponseType.OK:
@@ -588,7 +592,7 @@ class AppWindow(Gtk.ApplicationWindow):
         gen_pwd, pwd_len = pwd.password()
         self.pwd_label.set_text(gen_pwd)
         self.pwd_len.set_text(f"Length: {str(pwd_len)}")
-        with open(join(Fn.homedir, "passphraser.json"), "r") as cfg:
+        with open(join(Fn.confdir, "passphraser.json"), "r") as cfg:
             self.config = loads(cfg.read())
             cfg.close()
         for k, v in zip(
@@ -596,7 +600,7 @@ class AppWindow(Gtk.ApplicationWindow):
             [lst, min, max, wrd, sep, cap, num, sym]
         ):
             self.config[k] = v
-        with open(join(Fn.homedir, "passphraser.json"), "w") as cfg:
+        with open(join(Fn.confdir, "passphraser.json"), "w") as cfg:
             cfg.write(dumps(self.config))
             cfg.close()
 
@@ -604,7 +608,7 @@ class AppWindow(Gtk.ApplicationWindow):
         """
         When generate password is clicked, call `gen_pwd`
         """
-        config = loads(open(join(Fn.homedir, "passphraser.json"), "r").read())
+        config = loads(open(join(Fn.confdir, "passphraser.json"), "r").read())
         if not config["dbg"]:
             try:
                 self.gen_pwd()
@@ -647,7 +651,7 @@ class AppWindow(Gtk.ApplicationWindow):
             [self.cap, self.num, self.sym]
         ):
             v.set_active(self.app.dflt[k])
-        with open(join(Fn.homedir, "passphraser.json"), "w") as cfg:
+        with open(join(Fn.confdir, "passphraser.json"), "w") as cfg:
             cfg.write(dumps(self.app.dflt))
             cfg.close()
         self.pwd_label.set_text("")
@@ -668,7 +672,7 @@ class Application(Gtk.Application):
         Gtk.Application.do_startup(self)
         # default parameters
         self.dflt = {
-            "lst": join(Fn.homedir, "wordlists", "eff_large.txt"),
+            "lst": join(Fn.confdir, "wordlists", "eff_large.txt"),
             "min": 3,
             "max": 9,
             "wrd": 6,
@@ -680,24 +684,20 @@ class Application(Gtk.Application):
         }
         for symbol in Fn.symbols:
             self.dflt[symbol] = True
-        if not exists(Fn.homedir):
-            mkdir(Fn.homedir)
-            if system() == "Windows":
-                call(["attrib", "+H", Fn.homedir])
-            elif system() == "Darwin":
-                call(["chflags", "hidden", Fn.homedir])
-        if not exists(join(Fn.homedir, "wordlists")):
-            mkdir(join(Fn.homedir, "wordlists"))
+        if not exists(Fn.confdir):
+            mkdir(Fn.confdir)
+        if not exists(join(Fn.confdir, "wordlists")):
+            mkdir(join(Fn.confdir, "wordlists"))
             for subdir, dirs, files in walk(
                 join(dirname(__file__), "..", "wordlists")
             ):
                 for file in files:
                     copyfile(
                         join(subdir, file),
-                        join(Fn.homedir, "wordlists", file)
+                        join(Fn.confdir, "wordlists", file)
                     )
-        if not exists(join(Fn.homedir, "passphraser.json")):
-            with open(join(Fn.homedir, "passphraser.json"), "w") as default:
+        if not exists(join(Fn.confdir, "passphraser.json")):
+            with open(join(Fn.confdir, "passphraser.json"), "w") as default:
                 default.write(dumps(self.dflt))
                 default.close()
 
