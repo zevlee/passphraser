@@ -17,10 +17,10 @@ class Fn:
     # config directory
     if system() == "Darwin":
         confdir = expanduser(
-            "~/Library/Application Support/me.zevlee.passphraser"
+            "~/Library/Application Support/me.zevlee.Passphraser"
         )
     else:
-        confdir = join(GLib.get_user_config_dir(), "passphraser")
+        confdir = join(GLib.get_user_config_dir(), "Passphraser")
     # list of possible symbols to add to password
     symbols = [
         "~", "`", "!", "@",
