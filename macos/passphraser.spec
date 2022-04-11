@@ -57,3 +57,11 @@ coll = COLLECT(
 	upx_exclude=[],
 	name='passphraser'
 )
+
+app = BUNDLE(
+	coll,
+	name='Passphraser.app',
+	icon='passphraser.icns',
+	bundle_identifier='me.zevlee.Passphraser',
+	version='VERSION'
+)
