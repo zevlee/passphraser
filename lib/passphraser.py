@@ -215,7 +215,7 @@ class Header(Gtk.HeaderBar):
         license = open(join(dirname(__file__), "..", "LICENSE")).read()
         dialog.set_license(license)
         dialog.set_wrap_license(True)
-        dialog.set_website("https://gitlab.com/zevlee/passphraser")
+        dialog.set_website("https://github.com/zevlee/passphraser")
         dialog.set_website_label("Homepage")
         dialog.present()
 
