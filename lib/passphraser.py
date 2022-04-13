@@ -211,7 +211,7 @@ class Header(Gtk.HeaderBar):
         dialog.set_logo(logo)
         dialog.set_program_name(self.title)
         dialog.set_version(self.version)
-        dialog.set_copyright("Copyright © 2021 Zev Lee")
+        dialog.set_copyright("Copyright © 2021-2022 Zev Lee")
         license = open(join(dirname(__file__), "..", "LICENSE")).read()
         dialog.set_license(license)
         dialog.set_wrap_license(True)
