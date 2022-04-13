@@ -16,8 +16,7 @@ a = Analysis(
 		('../wordlists/eff_short_2.txt', 'wordlists'),
 		('../LICENSE', '.'),
 		('../VERSION', '.'),
-		('passphraser.desktop', '.'),
-		('.DirIcon', '.')
+		('passphraser.desktop', '.')
 	],
 	hiddenimports=[],
 	hookspath=[],
