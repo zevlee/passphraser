@@ -1,9 +1,11 @@
 [Desktop Entry]
 Name=Passphraser
-Comment=A simple password generator that provides phrases based on a user-supplied wordlist.
 Exec=passphraser
 Terminal=false
 Type=Application
 Icon=passphraser
+StartupWMClass=passphraser
+X-AppImage-Version=VERSION
+Comment=A simple password generator based on a user-supplied word list.
+MimeType=x-scheme-handler/passphraser;
 Categories=GNOME;GTK;Utility;
-StartupNotify=false
