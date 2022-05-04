@@ -57,7 +57,7 @@ class Password:
         # add symbol
         self.sym = sym
 
-    def form_lexicon(self):
+    def _form_lexicon(self):
         """
         Forms lexicon from which words are chosen to create passwords
         """
@@ -69,15 +69,7 @@ class Password:
                 lexicon.append(word)
         return lexicon
 
-    def password(self):
-        """
-        Creates password of `wrd` words from lexicon
-        """
-        lexicon = self.form_lexicon()
-        result = ""
-        # choose a random point to add a number
-        num_ind = randbelow(self.wrd + 1)
-        sym_ind = randbelow(self.wrd + 1)
+    def _form_sym_list(self):
         with open(join(Fn.conf_dir, "passphraser.json"), "r") as cfg:
             config = loads(cfg.read())
             cfg.close()
@@ -89,56 +81,55 @@ class Password:
         for char in symbols:
             if char not in self.sep:
                 sym_list.append(char)
+        return sym_list
+
+    def _add_num_sym(self, sym_list, num_ind, sym_ind, ind):
+        result = ""
+        if choice([True, False]):
+            if self.num and ind == num_ind:
+                num = str(randbelow(10))
+                result += f"{num}{self.sep}"
+            if self.sym and ind == sym_ind:
+                try:
+                    sym = choice(sym_list)
+                except IndexError:
+                    sym = ""
+                result += f"{sym}{self.sep}"
+        else:
+            if self.sym and ind == sym_ind:
+                try:
+                    sym = choice(sym_list)
+                except IndexError:
+                    sym = ""
+                result += f"{sym}{self.sep}"
+            if self.num and ind == num_ind:
+                num = str(randbelow(10))
+                result += f"{num}{self.sep}"
+        return result
+
+    def password(self):
+        """
+        Creates password of `wrd` words from lexicon
+        """
+        lexicon = self._form_lexicon()
+        sym_list = self._form_sym_list()
+
+        result = ""
+        # choose a random point to add a number
+        num_ind = randbelow(self.wrd + 1)
+        sym_ind = randbelow(self.wrd + 1)
 
         for i in range(self.wrd):
             # num and sym
-            if choice([True, False]):
-                if self.num and i == num_ind:
-                    num = str(randbelow(10))
-                    result += f"{num}{self.sep}"
-                if self.sym and i == sym_ind:
-                    try:
-                        sym = choice(sym_list)
-                    except IndexError:
-                        sym = ""
-                    result += f"{sym}{self.sep}"
-            else:
-                if self.sym and i == sym_ind:
-                    try:
-                        sym = choice(sym_list)
-                    except IndexError:
-                        sym = ""
-                    result += f"{sym}{self.sep}"
-                if self.num and i == num_ind:
-                    num = str(randbelow(10))
-                    result += f"{num}{self.sep}"
+            result += self._add_num_sym(sym_list, num_ind, sym_ind, i)
             # word
             word = choice(lexicon)
             if self.cap:
                 result += f"{word.capitalize()}{self.sep}"
             else:
                 result += f"{word}{self.sep}"
-            # num and sym end case
-            if choice([True, False]):
-                if num_ind == self.wrd and self.num and i == self.wrd - 1:
-                    num = str(randbelow(10))
-                    result += f"{num}{self.sep}"
-                if sym_ind == self.wrd and self.sym and i == self.wrd - 1:
-                    try:
-                        sym = choice(sym_list)
-                    except IndexError:
-                        sym = ""
-                    result += f"{sym}{self.sep}"
-            else:
-                if sym_ind == self.wrd and self.sym and i == self.wrd - 1:
-                    try:
-                        sym = choice(sym_list)
-                    except IndexError:
-                        sym = ""
-                    result += f"{sym}{self.sep}"
-                if num_ind == self.wrd and self.num and i == self.wrd - 1:
-                    num = str(randbelow(10))
-                    result += f"{num}{self.sep}"
+        # num and sym end case
+        result += self._add_num_sym(sym_list, num_ind, sym_ind, self.wrd)
         if self.sep != "":
             result = result[:-len(self.sep)]
         return result, len(result)
