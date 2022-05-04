@@ -78,7 +78,7 @@ git clone https://github.com/zevlee/passphraser.git
 ```
 cd passphraser/linux
 ```
-4. Run ``bootstrap.sh`` to install pyinstaller via pip if you haven't already.
+4. Run ``bootstrap.sh`` to install any missing dependencies.
 ```
 chmod +x bootstrap.sh && ./bootstrap.sh
 ```
