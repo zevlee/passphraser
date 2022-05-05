@@ -4,10 +4,11 @@
 !define FILENAME "passphraser"
 !define AUTHOR "Zev Lee"
 !define DESCRIPTION "Phrase-based password generator."
+!define INSTALLSIZE 110192
+
+Unicode True
 
 !define /file VERSION "..\VERSION"
-
-!define INSTALLSIZE 105309
 
 InstallDir "$PROGRAMFILES\${APPNAME}"
 
@@ -35,15 +36,13 @@ function .onInit
 	!insertmacro VerifyUserIsAdmin
 functionEnd
 
-!include zipdll.nsh
-
 section "install"
 
 	setOutPath $INSTDIR
 	file "${FILENAME}.ico"
 	file "${FILENAME}.zip"
 
-	ZipDLL::extractall "$INSTDIR\${FILENAME}.zip" "$INSTDIR"
+	nsisunz::Unzip "$INSTDIR\${FILENAME}.zip" "$INSTDIR"
 
 	delete "$INSTDIR\${FILENAME}.zip"
 
