@@ -62,10 +62,9 @@ class Password:
         """
         Forms lexicon from which words are chosen to create passwords
         """
-        words = [word.replace("\n", "") for word in self.lst]
         # filter self.lst based on length
         lexicon = []
-        for word in words:
+        for word in self.lst:
             if len(word) >= self.min and len(word) <= self.max:
                 lexicon.append(word)
         return lexicon
