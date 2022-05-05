@@ -2,13 +2,11 @@
 
 # Passphraser
 
-Passphraser is a password generator that accepts any text file and treats each line as a possible input. So a text file like this...
+Passphraser is a password generator that accepts any text file and treats each word as a possible input. So a text file like this...
 ```
-alpha
-bravo
-charlie
-delta
-echo
+alpha bravo
+charlie delta echo
+foxtrot
 ```
 ...will result in a generated password like this with the default settings.
 ```
