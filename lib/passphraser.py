@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 from secrets import choice, randbelow
+from re import split
 from os import mkdir, walk
 from os.path import dirname, join, exists, expanduser
 from shutil import copyfile
@@ -41,7 +42,7 @@ class Password:
 
     def __init__(self, lst, min, max, wrd, sep, cap, num, sym):
         # word list
-        self.lst = open(lst, "r").readlines()
+        self.lst = split(r"\s+", open(lst, "r").read())
         # minimum word length
         self.min = min
         # maximum word length
