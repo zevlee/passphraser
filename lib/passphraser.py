@@ -127,7 +127,7 @@ class Password:
             if self.cap:
                 result += f"{word.capitalize()}{self.sep}"
             else:
-                result += f"{word}{self.sep}"
+                result += f"{word.lower()}{self.sep}"
         # num and sym end case
         result += self._add_num_sym(sym_list, num_ind, sym_ind, self.wrd)
         if self.sep != "":
