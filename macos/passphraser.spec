@@ -8,7 +8,9 @@ a = Analysis(
 	binaries=[],
 	datas=[
 		('../lib/__init__.py', 'lib'),
-		('../lib/passphraser.py', 'lib'),
+		('../lib/application.py', 'lib'),
+		('../lib/fn.py', 'lib'),
+		('../lib/password.py', 'lib'),
 		('../gui/menu.xml', 'gui'),
 		('../passphraser.svg', '.'),
 		('../wordlists/eff_large.txt', 'wordlists'),
