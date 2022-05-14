@@ -3,7 +3,7 @@
 from lib.fn import Fn
 from lib.password import Password
 from os import mkdir, walk
-from os.path import dirname, join, exists
+from os.path import join, exists
 from shutil import copyfile
 from platform import system
 from json import loads, dumps
@@ -42,9 +42,7 @@ class Header(Gtk.HeaderBar):
         action.connect("activate", self.app.on_quit)
         self.app.add_action(action)
 
-        builder = Gtk.Builder.new_from_file(
-            join(dirname(__file__), "..", "gui", "menu.xml")
-        )
+        builder = Gtk.Builder.new_from_file(join("gui", "menu.xml"))
         menu = builder.get_object("app-menu")
         menu_button = Gtk.MenuButton.new()
         menu_button.set_image(
@@ -75,14 +73,11 @@ class Header(Gtk.HeaderBar):
         """
         dialog = Gtk.AboutDialog(modal=True)
         dialog.set_position(Gtk.WindowPosition.CENTER)
-        file = join(dirname(__file__), "..", "passphraser.svg")
-        logo = Pixbuf.new_from_file(file)
-        dialog.set_logo(logo)
+        dialog.set_logo(Pixbuf.new_from_file("passphraser.svg"))
         dialog.set_program_name(self.title)
         dialog.set_version(self.version)
         dialog.set_copyright("Copyright © 2021-2022 Zev Lee")
-        license = open(join(dirname(__file__), "..", "LICENSE")).read()
-        dialog.set_license(license)
+        dialog.set_license(open("LICENSE").read())
         dialog.set_wrap_license(True)
         dialog.set_website("https://github.com/zevlee/passphraser")
         dialog.set_website_label("Homepage")
@@ -93,9 +88,7 @@ class Preferences(Gtk.Window):
 
     def __init__(self):
         Gtk.Window.__init__(self)
-        self.set_icon_from_file(
-            join(dirname(__file__), "..", "passphraser.svg")
-        )
+        self.set_icon_from_file("passphraser.svg")
         self.set_title("Preferences")
         self.set_border_width(40)
         self.set_position(Gtk.WindowPosition.CENTER)
@@ -328,9 +321,7 @@ class AppWindow(Gtk.ApplicationWindow):
     def __init__(self, app):
         Gtk.Window.__init__(self, application=app)
         self.app = app
-        self.set_icon_from_file(
-            join(dirname(__file__), "..", "passphraser.svg")
-        )
+        self.set_icon_from_file("passphraser.svg")
         self.set_border_width(40)
         self.set_position(Gtk.WindowPosition.CENTER)
         self.set_resizable(True)
@@ -557,9 +548,7 @@ class Application(Gtk.Application):
             mkdir(Fn.conf_dir)
         if not exists(join(Fn.conf_dir, "wordlists")):
             mkdir(join(Fn.conf_dir, "wordlists"))
-            for subdir, dirs, files in walk(
-                join(dirname(__file__), "..", "wordlists")
-            ):
+            for subdir, dirs, files in walk("wordlists"):
                 for file in files:
                     copyfile(
                         join(subdir, file),
