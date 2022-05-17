@@ -20,7 +20,7 @@ The included word lists are derived from the EFF's word lists found [here](https
 
 ### Building on Windows
 1. MSYS2 is needed to build on Windows. [Get it from the MSYS2 website.](https://www.msys2.org/)
-2. Go to your folder for MSYS2 and run ``mingw32.exe``. The following commands will be executed in the console that appears.
+2. Go to your folder for MSYS2 and run ``mingw64.exe``. The following commands will be executed in the console that appears.
 3. Install git.
 ```
 pacman -S git
