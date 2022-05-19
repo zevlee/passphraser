@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from os.path import join, expanduser
+from os.path import dirname, join, expanduser
 from platform import system
 from gi.repository import GLib
 
@@ -27,4 +27,4 @@ class Fn:
         " "
     ]
     # application version
-    version = open("VERSION").read()
+    version = open(join(dirname(__file__), "..", "VERSION")).read()
