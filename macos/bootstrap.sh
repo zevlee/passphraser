@@ -1,5 +1,5 @@
 #!/bin/sh
 
-brew install pygobject3 gtk4 librsvg adwaita-icon-theme
+brew install pygobject3 gtk4 adwaita-icon-theme libadwaita
 
 echo "Done"
