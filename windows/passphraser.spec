@@ -7,15 +7,10 @@ a = Analysis(
 	pathex=[],
 	binaries=[],
 	datas=[
-		('../lib/__init__.py', 'lib'),
-		('../lib/application.py', 'lib'),
-		('../lib/fn.py', 'lib'),
-		('../lib/password.py', 'lib'),
-		('../gui/menu.xml', 'gui'),
+		('../gui', 'gui'),
+		('../lib', 'lib'),
+		('../wordlists', 'wordlists'),
 		('../passphraser.svg', '.'),
-		('../wordlists/eff_large.txt', 'wordlists'),
-		('../wordlists/eff_short_1.txt', 'wordlists'),
-		('../wordlists/eff_short_2.txt', 'wordlists'),
 		('../LICENSE', '.'),
 		('../VERSION', '.')
 	],
