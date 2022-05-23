@@ -16,9 +16,11 @@ a = Analysis(
 		('passphraser.desktop', '.')
 	],
 	hooksconfig={
-		"gi": {
-			"module-versions": {
-				"Gtk": "4.0"
+		'gi': {
+			'icons': ['Adwaita'],
+			'themes': ['Adwaita'],
+			'module-versions': {
+				'Gtk': '4.0'
 			}
 		}
 	},
