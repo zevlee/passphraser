@@ -1,5 +1,3 @@
-![Alt text](https://raw.githubusercontent.com/zevlee/passphraser/main/passphraser.svg)
-
 # Passphraser
 
 Passphraser is a password generator that accepts any text file and treats each word as a possible input. So a text file like this...
