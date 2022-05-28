@@ -10,10 +10,11 @@ a = Analysis(
 		('../gui', 'gui'),
 		('../lib', 'lib'),
 		('../wordlists', 'wordlists'),
-		('../passphraser.svg', '.'),
+		('../me.zevlee.Passphraser.svg', '.'),
 		('../LICENSE', '.'),
 		('../VERSION', '.'),
-		('passphraser.desktop', '.')
+		('passphraser.desktop', '.'),
+		('icons', 'usr/share/icons')
 	],
 	hooksconfig={
 		'gi': {

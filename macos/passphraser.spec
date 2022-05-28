@@ -10,7 +10,7 @@ a = Analysis(
 		('../gui', 'gui'),
 		('../lib', 'lib'),
 		('../wordlists', 'wordlists'),
-		('../passphraser.svg', '.'),
+		('../me.zevlee.Passphraser.svg', '.'),
 		('../LICENSE', '.'),
 		('../VERSION', '.')
 	],
