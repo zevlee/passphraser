@@ -2,10 +2,10 @@
 
 from lib.utils import Utils
 from os.path import join
+from platform import system
 from gi import require_versions
-require_versions({"Gtk": "3.0"})
+require_versions({"Gtk": "4.0", "Adw": "1"})
 from gi.repository import Gtk
-from gi.repository.GdkPixbuf import Pixbuf
 
 
 class About(Gtk.AboutDialog):
@@ -22,9 +22,21 @@ class About(Gtk.AboutDialog):
             website_label="Homepage"
         )
 
+        # Set up header
+        header = Gtk.HeaderBar()
+
+        # Set decoration layout
+        if system() == "Darwin":
+            header.set_decoration_layout("close,minimize,maximize:")
+        else:
+            header.set_decoration_layout(":minimize,maximize,close")
+
+        # Add header
+        self.set_titlebar(header)
+
         # Set up logo
         filename = join(Utils.APP_DIR, f"{Utils.ID}.svg")
-        logo = Pixbuf.new_from_file(filename)
+        logo = Gtk.Image.new_from_file(filename)
 
         # Add logo
-        self.set_logo(logo)
+        self.set_logo(logo.get_paintable())

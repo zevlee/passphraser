@@ -6,7 +6,7 @@ from shutil import copyfile
 from platform import system
 from json import dumps
 from gi import require_versions
-require_versions({"Gtk": "3.0"})
+require_versions({"Gtk": "4.0", "Adw": "1"})
 from gi.repository import Gtk
 
 
@@ -16,11 +16,12 @@ class Preferences(Gtk.Window):
         super().__init__(
             modal=True,
             transient_for=parent,
-            resizable=False
+            resizable=False,
+            title="Preferences"
         )
 
         # Set up header
-        header = Gtk.HeaderBar(title="Preferences", show_close_button=True)
+        header = Gtk.HeaderBar()
 
         # Set decoration layout
         if system() == "Darwin":
@@ -169,10 +170,7 @@ class Preferences(Gtk.Window):
                     grid.attach(widgets[i][j], j * width, i, width, 1)
 
         # Add grid
-        self.add(grid)
-
-        # Show all added widgets
-        self.show_all()
+        self.set_child(grid)
 
         # Flattened list of symbol check buttons
         self.symbols = [symbol for row in symbols for symbol in row]

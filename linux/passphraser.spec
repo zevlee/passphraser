@@ -18,8 +18,10 @@ a = Analysis(
 	],
 	hooksconfig={
 		'gi': {
+			'icons': ['Adwaita'],
+			'themes': ['Adwaita'],
 			'module-versions': {
-				'Gtk': '3.0'
+				'Gtk': '4.0'
 			}
 		}
 	},

@@ -8,11 +8,11 @@ from shutil import copytree
 from platform import system
 from json import dumps
 from gi import require_versions
-require_versions({"Gtk": "3.0"})
-from gi.repository import Gtk, Gio, GLib
+require_versions({"Gtk": "4.0", "Adw": "1"})
+from gi.repository import Gtk, Gdk, Gio, GLib, Adw
 
 
-class Application(Gtk.Application):
+class Application(Adw.Application):
 
     def __init__(self):
         super().__init__(
@@ -25,6 +25,9 @@ class Application(Gtk.Application):
 
         # Set program name
         GLib.set_prgname(Utils.ID)
+
+        # Set color scheme
+        self.get_style_manager().set_color_scheme(Adw.ColorScheme.PREFER_DARK)
 
     def do_startup(self):
         Gtk.Application.do_startup(self)
@@ -49,8 +52,10 @@ class Application(Gtk.Application):
 
         # Set up icons for linux
         if system() == "Linux":
-            icon_theme = Gtk.IconTheme.get_default()
-            icon_theme.append_search_path(
+            icon_theme = Gtk.IconTheme.get_for_display(
+                Gdk.Display.get_default()
+            )
+            icon_theme.add_search_path(
                 join(Utils.APP_DIR, "usr", "share", "icons")
             )
 
