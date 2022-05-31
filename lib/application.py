@@ -5,6 +5,7 @@ from lib.window import Window
 from os import mkdir
 from os.path import join, exists
 from shutil import copytree
+from platform import system
 from json import dumps
 from gi import require_versions
 require_versions({"Gtk": "3.0"})
@@ -45,6 +46,13 @@ class Application(Gtk.Application):
             with open(join(Utils.CONFIG_DIR, "default.json"), "w") as d:
                 d.write(dumps(Utils.DEFAULT))
                 d.close()
+
+        # Set up icons for linux
+        if system() == "Linux":
+            icon_theme = Gtk.IconTheme.get_default()
+            icon_theme.append_search_path(
+                join(Utils.APP_DIR, "usr", "share", "icons")
+            )
 
     def do_activate(self):
         win = Window(self)

@@ -11,7 +11,6 @@ from json import dumps
 from gi import require_versions
 require_versions({"Gtk": "3.0"})
 from gi.repository import Gtk, Gio
-from gi.repository.GdkPixbuf import Pixbuf
 
 
 class Window(Gtk.ApplicationWindow):
@@ -22,12 +21,8 @@ class Window(Gtk.ApplicationWindow):
             resizable=True
         )
 
-        # Set up icon
-        filename = join(Utils.APP_DIR, f"{Utils.ID}.svg")
-        icon = Pixbuf.new_from_file(filename)
-
         # Add icon
-        self.set_icon(icon)
+        self.set_icon_name(Utils.ID)
 
         # Set up header
         header = Gtk.HeaderBar(title=Utils.NAME, show_close_button=True)
