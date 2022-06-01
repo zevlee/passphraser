@@ -2,7 +2,7 @@
 
 from sys import argv
 from gi import require_versions
-require_versions({"Gdk": "3.0"})
+require_versions({"Gdk": "4.0"})
 from gi.repository import Gdk
 Gdk.set_allowed_backends("x11,*")
 from lib.application import Application

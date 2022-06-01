@@ -9,7 +9,7 @@ from shutil import copyfile
 from platform import system
 from json import dumps
 from gi import require_versions
-require_versions({"Gtk": "3.0"})
+require_versions({"Gtk": "4.0", "Adw": "1"})
 from gi.repository import Gtk, Gio
 
 
@@ -25,7 +25,7 @@ class Window(Gtk.ApplicationWindow):
         self.set_icon_name(Utils.ID)
 
         # Set up header
-        header = Gtk.HeaderBar(title=Utils.NAME, show_close_button=True)
+        header = Gtk.HeaderBar()
 
         # Build menu
         builder = Gtk.Builder.new_from_file(
@@ -33,12 +33,7 @@ class Window(Gtk.ApplicationWindow):
         )
         menu = builder.get_object("app-menu")
         menu_button = Gtk.MenuButton()
-        menu_button.set_image(
-            Gtk.Image.new_from_icon_name(
-                "open-menu-symbolic",
-                Gtk.IconSize.SMALL_TOOLBAR
-            )
-        )
+        menu_button.set_icon_name("open-menu-symbolic")
         menu_button.set_menu_model(menu)
 
         # Add menu actions
@@ -157,10 +152,7 @@ class Window(Gtk.ApplicationWindow):
                 grid.attach(widgets[i][j], j * width, i, width, 1)
 
         # Add grid
-        self.add(grid)
-
-        # Show all added widgets
-        self.show_all()
+        self.set_child(grid)
 
     def on_prefs_clicked(self, action, param):
         """
@@ -212,7 +204,9 @@ class Window(Gtk.ApplicationWindow):
             "_Cancel", Gtk.ResponseType.CANCEL,
             "_Open", Gtk.ResponseType.OK,
         )
-        dialog.set_current_folder(join(Utils.CONFIG_DIR, "wordlists"))
+        dialog.set_current_folder(
+            Gio.File.new_for_path(join(Utils.CONFIG_DIR, "wordlists"))
+        )
         dialog.connect("response", self._select_file)
         dialog.show()
 
@@ -267,6 +261,7 @@ class Window(Gtk.ApplicationWindow):
                 message_type=Gtk.MessageType.INFO,
                 buttons=Gtk.ButtonsType.OK
             )
+            dialog.set_titlebar(Gtk.HeaderBar(show_title_buttons=False))
             dialog.connect("response", self._confirm)
             try:
                 self._generate_password()
