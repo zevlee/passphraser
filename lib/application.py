@@ -26,9 +26,6 @@ class Application(Adw.Application):
         # Set program name
         GLib.set_prgname(Utils.ID)
 
-        # Set color scheme
-        self.get_style_manager().set_color_scheme(Adw.ColorScheme.PREFER_DARK)
-
     def do_startup(self):
         Gtk.Application.do_startup(self)
 
@@ -49,6 +46,17 @@ class Application(Adw.Application):
             with open(join(Utils.CONFIG_DIR, "default.json"), "w") as d:
                 d.write(dumps(Utils.DEFAULT))
                 d.close()
+
+        # Set color scheme
+        appearance = Utils.read_config("settings.json")["app"]
+        if appearance:
+            self.get_style_manager().set_color_scheme(
+                Adw.ColorScheme.FORCE_DARK
+            )
+        else:
+            self.get_style_manager().set_color_scheme(
+                Adw.ColorScheme.FORCE_LIGHT
+            )
 
         # Set up icons for linux
         if system() == "Linux":

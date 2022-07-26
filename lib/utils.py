@@ -46,6 +46,7 @@ class Utils:
         "cap": True,
         "num": True,
         "sym": False,
+        "app": True,
         "dbg": False
     }
     for symbol in SYMBOLS:
