@@ -7,7 +7,7 @@ from platform import system
 from json import dumps
 from gi import require_versions
 require_versions({"Gtk": "4.0", "Adw": "1"})
-from gi.repository import Gtk
+from gi.repository import Gtk, Adw
 
 
 class Preferences(Gtk.Window):
@@ -130,6 +130,10 @@ class Preferences(Gtk.Window):
         advanced_label = Gtk.Label(halign=Gtk.Align.START)
         advanced_label.set_markup("<b>Advanced</b>")
 
+        # Appearance check button
+        self.app = Gtk.CheckButton(label="Dark Mode")
+        self.app.set_active(self.config["app"])
+
         # Debug mode check button
         self.dbg = Gtk.CheckButton(label="Debug Mode")
         self.dbg.set_active(self.config["dbg"])
@@ -138,6 +142,7 @@ class Preferences(Gtk.Window):
         self.default = Gtk.CheckButton(
             label="Save current settings as default"
         )
+
         # Cancel and save buttons
         cancel_button = Gtk.Button(label="Cancel")
         cancel_button.connect("clicked", self.on_cancel_clicked)
@@ -156,6 +161,7 @@ class Preferences(Gtk.Window):
         widgets = [[symbols_label]] + symbols + [
             [deselect_button, select_button],
             [advanced_label],
+            [self.app],
             [self.dbg],
             [self.default],
             [cancel_button, save_button]
@@ -199,12 +205,25 @@ class Preferences(Gtk.Window):
         """
         Save preferences then close dialog
         """
+        # Save preferences
         with open(join(Utils.CONFIG_DIR, "settings.json"), "w") as c:
             for k, v in zip(Utils.SYMBOLS, self.symbols):
                 self.config[k] = v.get_active()
+            self.config["app"] = self.app.get_active()
             self.config["dbg"] = self.dbg.get_active()
             c.write(dumps(self.config))
             c.close()
+        # Set color scheme
+        application = self.get_transient_for().get_application()
+        if self.app.get_active():
+            application.get_style_manager().set_color_scheme(
+                Adw.ColorScheme.FORCE_DARK
+            )
+        else:
+            application.get_style_manager().set_color_scheme(
+                Adw.ColorScheme.FORCE_LIGHT
+            )
+        # Save settings to default
         if self.default.get_active():
             copyfile(
                 join(Utils.CONFIG_DIR, "settings.json"),
