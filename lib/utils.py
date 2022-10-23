@@ -39,8 +39,8 @@ class Utils:
     # Default parameters
     DEFAULT = {
         "lst": join(CONFIG_DIR, "wordlists", "eff_large.txt"),
-        "min": 3,
-        "max": 9,
+        "mnw": 3,
+        "mxw": 9,
         "wrd": 6,
         "sep": "-",
         "cap": True,
@@ -58,6 +58,11 @@ class Utils:
         """
         Given a file name `filename`, return the configuration dictionary or
         the default configuration if `filename` is not found
+        
+        :param filename: Filename
+        :type filename: str
+        :return: Configuration dictionary
+        :rtype: dict
         """
         try:
             config = loads(open(join(Utils.CONFIG_DIR, filename), "r").read())
