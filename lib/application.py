@@ -36,7 +36,7 @@ class Application(Adw.Application):
         Start up application
         """
         Gtk.Application.do_startup(self)
-
+        
         # Restore any missing files and folders
         if not exists(Utils.CONFIG_DIR):
             mkdir(Utils.CONFIG_DIR)
@@ -54,6 +54,10 @@ class Application(Adw.Application):
             with open(join(Utils.CONFIG_DIR, "default.json"), "w") as d:
                 d.write(dumps(Utils.DEFAULT))
                 d.close()
+        
+        # Validate config files
+        Utils.validate_config("default.json")
+        Utils.validate_config("settings.json", "default.json")
 
         # Set color scheme
         appearance = Utils.read_config("settings.json")["app"]
