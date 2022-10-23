@@ -9,8 +9,16 @@ from gi.repository import Gtk
 
 
 class About(Gtk.AboutDialog):
-
+    """
+    About dialog window
+    
+    :param parent: Parent window
+    :type parent: Gtk.Window
+    """
     def __init__(self, parent):
+        """
+        Constructor
+        """
         super().__init__(
             modal=True,
             transient_for=parent,

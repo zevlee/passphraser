@@ -11,8 +11,16 @@ from gi.repository import Gtk, Adw
 
 
 class Preferences(Gtk.Window):
-
+    """
+    Preferences window
+    
+    :param parent: Parent window
+    :type parent: Gtk.Window
+    """
     def __init__(self, parent):
+        """
+        Constructor
+        """
         super().__init__(
             modal=True,
             transient_for=parent,
@@ -184,6 +192,9 @@ class Preferences(Gtk.Window):
     def on_select_clicked(self, button):
         """
         Set all symbol check buttons to true
+        
+        :param button: Button
+        :type button: Gtk.Button
         """
         for widget in self.symbols:
             widget.set_active(True)
@@ -191,19 +202,28 @@ class Preferences(Gtk.Window):
     def on_deselect_clicked(self, button):
         """
         Set all symbol check buttons to false
+        
+        :param button: Button
+        :type button: Gtk.Button
         """
         for widget in self.symbols:
             widget.set_active(False)
 
     def on_cancel_clicked(self, button):
         """
-        Close preferences dialog without saving
+        Close preferences window without saving
+        
+        :param button: Button
+        :type button: Gtk.Button
         """
         self.destroy()
 
     def on_save_clicked(self, button):
         """
         Save preferences then close dialog
+        
+        :param button: Button
+        :type button: Gtk.Button
         """
         # Save preferences
         with open(join(Utils.CONFIG_DIR, "settings.json"), "w") as c:

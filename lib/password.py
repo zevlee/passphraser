@@ -6,17 +6,39 @@ from re import split
 
 
 class Password:
-
+    """
+    Password generator
+    
+    :param lst: Word list filename
+    :type lst: str
+    :param mnw: Minimum word length
+    :type mnw: int
+    :param mxw: Maximum word length
+    :type mxw: int
+    :param wrd: Number of words in the generated password
+    :type wrd: int
+    :param sep: Separator between words
+    :type sep: str
+    :param cap: Capitalize words option
+    :type cap: bool
+    :param sym: Add symbol option
+    :type sym: bool
+    :param config: Configuration
+    :type config: dict
+    """
     def __init__(
-        self, lst, min, max, wrd, sep, cap, num, sym,
+        self, lst, mnw, mxw, wrd, sep, cap, num, sym,
         config
     ):
+        """
+        Constructor
+        """
         # Word list
         self.lst = split(r"\s+", open(lst, "r").read())
         # Minimum word length
-        self.min = min
+        self.mnw = mnw
         # Maximum word length
-        self.max = max
+        self.mxw = mxw
         # Number of words
         self.wrd = wrd
         # Separator
@@ -33,23 +55,40 @@ class Password:
     def _form_lexicon(self):
         """
         Form lexicon from which words are chosen to create passwords
+        
+        :return: List of words to use in password
+        :rtype: list
         """
         # Filter word list based on length
         lexicon = []
         for word in self.lst:
-            if len(word) >= self.min and len(word) <= self.max:
+            if len(word) >= self.mnw and len(word) <= self.mxw:
                 lexicon.append(word)
         return lexicon
 
     def _form_sym_list(self):
         """
         Form the list of possible symbols to add
+        
+        :return: List of symbols to use in password
+        :rtype: list
         """
         return [symbol for symbol in Utils.SYMBOLS if self.config[symbol]]
 
     def _add_num_sym(self, sym_list, num_ind, sym_ind, ind):
         """
         Add a number and symbol
+        
+        :param sym_list: List of symbols
+        :type sym_list: list
+        :param num_ind: Index of number insertion into password
+        :type num_ind: int
+        :param sym_ind: Index of symbol insertion into password
+        :type sym_ind: int
+        :param ind: Index of word in password
+        :type ind: int
+        :return: String to add to password
+        :rtype: str
         """
         result = ""
         # half the time, adding a number is prioritized
@@ -77,7 +116,10 @@ class Password:
 
     def generate_password(self):
         """
-        Generates password of `wrd` words from lexicon
+        Generate password of `wrd` words from lexicon
+        
+        :return: Generated password
+        :rtype: str
         """
         lexicon = self._form_lexicon()
         sym_list = self._form_sym_list()

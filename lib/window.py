@@ -14,8 +14,16 @@ from gi.repository import Gtk, Gio
 
 
 class Window(Gtk.ApplicationWindow):
-
+    """
+    Main window
+    
+    :param app: Application
+    :type app: Gtk.Application
+    """
     def __init__(self, app):
+        """
+        Constructor
+        """
         super().__init__(
             application=app,
             resizable=True
@@ -83,16 +91,16 @@ class Window(Gtk.ApplicationWindow):
         self.lst.set_text(self.config["lst"])
 
         # Minimum word length label and entry field
-        min_label = Gtk.Label(halign=Gtk.Align.START)
-        min_label.set_markup("<b>Minimum word length</b>")
-        self.min = Gtk.Entry()
-        self.min.set_text(str(self.config["min"]))
+        mnw_label = Gtk.Label(halign=Gtk.Align.START)
+        mnw_label.set_markup("<b>Minimum word length</b>")
+        self.mnw = Gtk.Entry()
+        self.mnw.set_text(str(self.config["mnw"]))
 
         # Maximum word length label and entry field
-        max_label = Gtk.Label(halign=Gtk.Align.START)
-        max_label.set_markup("<b>Maximum word length</b>")
-        self.max = Gtk.Entry()
-        self.max.set_text(str(self.config["max"]))
+        mxw_label = Gtk.Label(halign=Gtk.Align.START)
+        mxw_label.set_markup("<b>Maximum word length</b>")
+        self.mxw = Gtk.Entry()
+        self.mxw.set_text(str(self.config["mxw"]))
 
         # Number of words label and entry field
         wrd_label = Gtk.Label(halign=Gtk.Align.START)
@@ -135,8 +143,8 @@ class Window(Gtk.ApplicationWindow):
         widgets = [
             [lst_label, lst_button],
             [self.lst],
-            [min_label, self.min],
-            [max_label, self.max],
+            [mnw_label, self.mnw],
+            [mxw_label, self.mxw],
             [wrd_label, self.wrd],
             [sep_label, self.sep],
             [self.cap],
@@ -157,6 +165,11 @@ class Window(Gtk.ApplicationWindow):
     def on_prefs_clicked(self, action, param):
         """
         Open preferences window
+        
+        :param action: Action
+        :type action: Gio.SimpleAction
+        :param param: Parameter
+        :type param: NoneType
         """
         prefs = Preferences(self)
         prefs.show()
@@ -164,6 +177,11 @@ class Window(Gtk.ApplicationWindow):
     def on_about_clicked(self, action, param):
         """
         Open about dialog window
+        
+        :param action: Action
+        :type action: Gio.SimpleAction
+        :param param: Parameter
+        :type param: NoneType
         """
         about = About(self)
         about.show()
@@ -171,11 +189,16 @@ class Window(Gtk.ApplicationWindow):
     def on_reset_clicked(self, action, param):
         """
         Reset fields to default parameters
+        
+        :param action: Action
+        :type action: Gio.SimpleAction
+        :param param: Parameter
+        :type param: NoneType
         """
         default = Utils.read_config("default.json")
         for k, v in zip(
-            ["lst", "min", "max", "wrd", "sep"],
-            [self.lst, self.min, self.max, self.wrd, self.sep]
+            ["lst", "mnw", "mxw", "wrd", "sep"],
+            [self.lst, self.mnw, self.mxw, self.wrd, self.sep]
         ):
             v.set_text(str(default[k]))
         for k, v in zip(
@@ -190,9 +213,12 @@ class Window(Gtk.ApplicationWindow):
             join(Utils.CONFIG_DIR, "settings.json")
         )
 
-    def on_file_clicked(self, widget):
+    def on_file_clicked(self, button):
         """
         Open dialog to choose word list
+        
+        :param button: Button
+        :type button: Gtk.Button
         """
         dialog = Gtk.FileChooserDialog(
             title="Choose the word list",
@@ -213,6 +239,11 @@ class Window(Gtk.ApplicationWindow):
     def _select_file(self, dialog, response):
         """
         Set file when chosen in dialog
+        
+        :param dialog: Dialog
+        :type dialog: Gtk.FileChooserDialog
+        :param response: Response from user
+        :type response: int
         """
         if response == Gtk.ResponseType.OK:
             self.lst.set_text(Gio.File.get_path(dialog.get_file()))
@@ -225,15 +256,15 @@ class Window(Gtk.ApplicationWindow):
         # Open stored preferences
         self.config = Utils.read_config("settings.json")
         lst = self.lst.get_text()
-        min = int(self.min.get_text())
-        max = int(self.max.get_text())
+        mnw = int(self.mnw.get_text())
+        mxw = int(self.mxw.get_text())
         wrd = int(self.wrd.get_text())
         sep = self.sep.get_text()
         cap = self.cap.get_active()
         num = self.num.get_active()
         sym = self.sym.get_active()
         password = Password(
-            lst, min, max, wrd, sep, cap, num, sym,
+            lst, mnw, mxw, wrd, sep, cap, num, sym,
             self.config
         )
         generated = password.generate_password()
@@ -241,8 +272,8 @@ class Window(Gtk.ApplicationWindow):
         self.password_length.set_text(f"Length: {len(generated)}")
         # Save the settings used to generate the password
         for k, v in zip(
-            ["lst", "min", "max", "wrd", "sep", "cap", "num", "sym"],
-            [lst, min, max, wrd, sep, cap, num, sym]
+            ["lst", "mnw", "mxw", "wrd", "sep", "cap", "num", "sym"],
+            [lst, mnw, mxw, wrd, sep, cap, num, sym]
         ):
             self.config[k] = v
         with open(join(Utils.CONFIG_DIR, "settings.json"), "w") as c:
@@ -252,6 +283,9 @@ class Window(Gtk.ApplicationWindow):
     def on_generate_clicked(self, button):
         """
         Generate password when button is clicked
+        
+        :param button: Button
+        :type button: Gtk.Button
         """
         config = Utils.read_config("settings.json")
         if not config["dbg"]:
@@ -276,6 +310,11 @@ class Window(Gtk.ApplicationWindow):
 
     def _confirm(self, dialog, response):
         """
-        Close upon confirming
+        Close upon confirmation
+
+        :param dialog: Dialog
+        :type dialog: Gtk.Dialog
+        :param response: Response from user
+        :type response: int
         """
         dialog.destroy()
