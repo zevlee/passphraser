@@ -7,7 +7,9 @@ from gi.repository import GLib
 
 
 class Utils:
-
+    """
+    Utilities
+    """
     # Application name
     NAME = "Passphraser"
 
