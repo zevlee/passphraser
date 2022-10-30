@@ -270,15 +270,16 @@ class Window(Gtk.ApplicationWindow):
         generated = password.generate_password()
         self.password.set_text(generated)
         self.password_length.set_text(f"Length: {len(generated)}")
-        # Save the settings used to generate the password
+        # Save the settings used to generate the password if changed
         for k, v in zip(
             ["lst", "mnw", "mxw", "wrd", "sep", "cap", "num", "sym"],
             [lst, mnw, mxw, wrd, sep, cap, num, sym]
         ):
             self.config[k] = v
-        with open(join(Utils.CONFIG_DIR, "settings.json"), "w") as c:
-            c.write(dumps(self.config))
-            c.close()
+        if Utils.read_config("settings.json") != self.config:
+            with open(join(Utils.CONFIG_DIR, "settings.json"), "w") as c:
+                c.write(dumps(self.config))
+                c.close()
 
     def on_generate_clicked(self, button):
         """
