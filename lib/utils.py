@@ -77,10 +77,10 @@ class Utils:
         Given a filename `filename`, replace the file with filename `default`
         if it is not valid
         
-        :param filename: Default filename
-        :type filename: str
         :param filename: Config filename
         :type filename: str
+        :param default: Default filename
+        :type default: str
         """
         overwrite = False
         default_config = Utils.read_config(default)
