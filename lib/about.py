@@ -11,7 +11,7 @@ from gi.repository import Gtk
 class About(Gtk.AboutDialog):
     """
     About dialog window
-    
+
     :param parent: Parent window
     :type parent: Gtk.Window
     """
@@ -24,7 +24,7 @@ class About(Gtk.AboutDialog):
             transient_for=parent,
             program_name=Utils.NAME,
             version=Utils.VERSION,
-            copyright="Copyright © 2021-2022 Zev Lee",
+            copyright="Copyright © 2021-2023 Zev Lee",
             license_type=Gtk.License.MIT_X11,
             website="https://github.com/zevlee/passphraser",
             website_label="Homepage"
