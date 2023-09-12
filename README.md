@@ -13,9 +13,6 @@ Delta-Charlie-6-Bravo-Charlie-Alpha-Echo
 
 The included word lists are derived from the EFF's word lists found [here](https://www.eff.org/deeplinks/2016/07/new-wordlists-random-passphrases) ([archive](https://web.archive.org/web/20210505043502/https://www.eff.org/deeplinks/2016/07/new-wordlists-random-passphrases)).
 
-### Signing Key
-[Download my signing key here.](https://zevlee.me/sign.txt)
-
 ### Building on Windows
 1. MSYS2 is needed to build on Windows. [Get it from the MSYS2 website.](https://www.msys2.org/)
 2. Go to your folder for MSYS2 and run ``mingw64.exe``. The following commands will be executed in the console that appears.
