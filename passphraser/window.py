@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
-from lib.utils import Utils
-from lib.password import Password
-from lib.about import About
-from lib.preferences import Preferences
+from .utils import Utils
+from .password import Password
+from .about import About
+from .preferences import Preferences
 from os.path import join
 from shutil import copyfile
 from platform import system
