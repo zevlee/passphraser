@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
-from lib.utils import Utils
-from lib.window import Window
+from .utils import Utils
+from .window import Window
 from os import mkdir
 from os.path import join, exists
 from shutil import copytree

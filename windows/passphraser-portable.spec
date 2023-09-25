@@ -3,12 +3,12 @@
 block_cipher = None
 
 a = Analysis(
-	['../passphraser'],
+	['../passphraser.py'],
 	pathex=[],
 	binaries=[],
 	datas=[
 		('../gui', 'gui'),
-		('../lib', 'lib'),
+		('../passphraser', 'passphraser'),
 		('../wordlists', 'wordlists'),
 		('../me.zevlee.Passphraser.svg', '.'),
 		('../LICENSE', '.'),

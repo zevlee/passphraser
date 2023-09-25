@@ -1,13 +1,12 @@
 #!/usr/bin/env python3
 
-from sys import argv
 from gi import require_versions
 require_versions({"Gdk": "4.0"})
 from gi.repository import Gdk
 Gdk.set_allowed_backends("x11,*")
-from lib.application import Application
+from .application import Application
 
 
-if __name__ == "__main__":
+def main(argv):
     app = Application()
     app.run(argv)
