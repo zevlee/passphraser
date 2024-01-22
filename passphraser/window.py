@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from .utils import Utils
+from . import Utils
 from .password import Password
 from .about import About
 from .preferences import Preferences

@@ -12,7 +12,10 @@ a = Analysis(
     pathex=[],
     binaries=[],
     datas=[
-        ('LICENSE', '.')
+        ('LICENSE', '.'),
+        ('gui', 'gui'),
+        ('wordlists', 'wordlists'),
+        ('me.zevlee.Passphraser.svg', '.')
     ],
     hiddenimports=[],
     hookspath=[],

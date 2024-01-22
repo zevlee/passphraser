@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from .utils import Utils
+from . import Utils
 from .window import Window
 from os import mkdir
 from os.path import join, exists

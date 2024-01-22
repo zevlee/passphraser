@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from .utils import Utils
+from . import Utils
 from os.path import join
 from platform import system
 from gi import require_versions

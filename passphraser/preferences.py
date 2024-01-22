@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from .utils import Utils
+from . import Utils
 from os.path import join
 from shutil import copyfile
 from platform import system
