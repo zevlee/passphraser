@@ -59,36 +59,34 @@ def read_config(filename):
     return config
 
 
-class Utils:
-    @staticmethod
-    def validate_config(filename, default="RESET"):
-        """
-        Given a filename `filename`, replace the file with filename `default`
-        if it is not valid
-        
-        :param filename: Config filename
-        :type filename: str
-        :param default: Default filename
-        :type default: str
-        """
-        overwrite = False
-        default_config = read_config(default)
-        config = read_config(filename)
-        # Remove invalid keys
-        for key in [k for k in config.keys() if k not in DEFAULT.keys()]:
-            config.pop(key)
+def validate_config(filename, default="RESET"):
+    """
+    Given a filename `filename`, replace the file with filename `default`
+    if it is not valid
+    
+    :param filename: Config filename
+    :type filename: str
+    :param default: Default filename
+    :type default: str
+    """
+    overwrite = False
+    default_config = read_config(default)
+    config = read_config(filename)
+    # Remove invalid keys
+    for key in [k for k in config.keys() if k not in DEFAULT.keys()]:
+        config.pop(key)
+        overwrite = True
+    # Add missing keys
+    for key in [k for k in DEFAULT.keys() if k not in config.keys()]:
+        config[key] = default_config[key]
+        overwrite = True
+    # Validate config options
+    for k in ["mnw", "mxw", "wrd", "cap", "num", "sym", "app", "dbg"]:
+        if not isinstance(config[k], int):
+            config[k] = default_config[k]
             overwrite = True
-        # Add missing keys
-        for key in [k for k in DEFAULT.keys() if k not in config.keys()]:
-            config[key] = default_config[key]
-            overwrite = True
-        # Validate config options
-        for k in ["mnw", "mxw", "wrd", "cap", "num", "sym", "app", "dbg"]:
-            if not isinstance(config[k], int):
-                config[k] = default_config[k]
-                overwrite = True
-        # Overwrite filename if there is an error
-        if overwrite:
-            with open(join(CONF, filename), "w") as c:
-                c.write(dumps(config))
-                c.close()
+    # Overwrite filename if there is an error
+    if overwrite:
+        with open(join(CONF, filename), "w") as c:
+            c.write(dumps(config))
+            c.close()

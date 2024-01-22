@@ -57,8 +57,8 @@ class Application(Adw.Application):
                 d.close()
         
         # Validate config files
-        Utils.validate_config("default.json")
-        Utils.validate_config("settings.json", "default.json")
+        validate_config("default.json")
+        validate_config("settings.json", "default.json")
 
         # Set color scheme
         appearance = read_config("settings.json")["app"]
