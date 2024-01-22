@@ -5,12 +5,11 @@ from gi.repository import GLib
 
 # Application version
 __version__ = "1.0.0"
+# Application name
+APPNAME = "Passphraser"
 
 
 class Utils:
-    # Application name
-    NAME = "Passphraser"
-
     # Application ID
     ID = "me.zevlee.Passphraser"
 
@@ -21,7 +20,7 @@ class Utils:
     if system() == "Darwin":
         CONFIG_DIR = join(expanduser("~/Library/Application Support"), ID)
     else:
-        CONFIG_DIR = join(GLib.get_user_config_dir(), NAME)
+        CONFIG_DIR = join(GLib.get_user_config_dir(), APPNAME)
 
     # List of possible symbols to add to password
     SYMBOLS = [

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 from . import Utils
+from . import *
 from .window import Window
 from os import mkdir
 from os.path import join, exists
@@ -26,7 +27,7 @@ class Application(Adw.Application):
         )
 
         # Set application name
-        GLib.set_application_name(Utils.NAME)
+        GLib.set_application_name(APPNAME)
 
         # Set program name
         GLib.set_prgname(Utils.ID)

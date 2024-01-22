@@ -23,7 +23,7 @@ class About(Gtk.AboutDialog):
         super().__init__(
             modal=True,
             transient_for=parent,
-            program_name=Utils.NAME,
+            program_name=APPNAME,
             version=__version__,
             copyright="Copyright © 2021-2023 Zev Lee",
             license_type=Gtk.License.MIT_X11,
