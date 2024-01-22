@@ -7,12 +7,11 @@ from gi.repository import GLib
 __version__ = "1.0.0"
 # Application name
 APPNAME = "Passphraser"
+# Application ID
+ID = "me.zevlee.Passphraser"
 
 
 class Utils:
-    # Application ID
-    ID = "me.zevlee.Passphraser"
-
     # Application directory
     APP_DIR = dirname(dirname(__file__))
 

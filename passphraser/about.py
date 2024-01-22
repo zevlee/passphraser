@@ -44,7 +44,7 @@ class About(Gtk.AboutDialog):
         self.set_titlebar(header)
 
         # Set up logo
-        filename = join(Utils.APP_DIR, f"{Utils.ID}.svg")
+        filename = join(Utils.APP_DIR, f"{ID}.svg")
         logo = Gtk.Image.new_from_file(filename)
 
         # Add logo

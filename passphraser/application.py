@@ -22,7 +22,7 @@ class Application(Adw.Application):
         Constructor
         """
         super().__init__(
-            application_id=Utils.ID,
+            application_id=ID,
             flags=Gio.ApplicationFlags.FLAGS_NONE
         )
 
@@ -30,7 +30,7 @@ class Application(Adw.Application):
         GLib.set_application_name(APPNAME)
 
         # Set program name
-        GLib.set_prgname(Utils.ID)
+        GLib.set_prgname(ID)
 
     def do_startup(self):
         """

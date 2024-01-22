@@ -30,7 +30,7 @@ class Window(Gtk.ApplicationWindow):
         )
 
         # Add icon
-        self.set_icon_name(Utils.ID)
+        self.set_icon_name(ID)
 
         # Set up header
         header = Gtk.HeaderBar()
