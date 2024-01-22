@@ -15,6 +15,7 @@ a = Analysis(
         ('LICENSE', '.'),
         ('gui', 'gui'),
         ('wordlists', 'wordlists'),
+        ('linux/icons', 'usr/share/icons'),
         ('me.zevlee.Passphraser.svg', '.')
     ],
     hiddenimports=[],
