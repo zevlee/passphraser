@@ -1,6 +1,4 @@
-#!/usr/bin/env python3
-
-from . import __version__, Utils
+from . import __version__
 from . import *
 from os.path import join
 from platform import system

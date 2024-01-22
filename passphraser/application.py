@@ -1,6 +1,3 @@
-#!/usr/bin/env python3
-
-from . import Utils
 from . import *
 from .window import Window
 from os import mkdir

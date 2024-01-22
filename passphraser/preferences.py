@@ -1,6 +1,3 @@
-#!/usr/bin/env python3
-
-from . import Utils
 from . import *
 from os.path import join
 from shutil import copyfile

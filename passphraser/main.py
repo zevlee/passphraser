@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 from gi import require_versions
 require_versions({"Gdk": "4.0"})
 from gi.repository import Gdk

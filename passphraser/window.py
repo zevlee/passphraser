@@ -1,6 +1,3 @@
-#!/usr/bin/env python3
-
-from . import Utils
 from . import *
 from .password import Password
 from .about import About
