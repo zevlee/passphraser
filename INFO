@@ -1,7 +1,0 @@
-#!/bin/sh
-
-APP=passphraser
-NAME="Passphraser"
-ICON=me.zevlee.Passphraser.svg
-AUTHOR="Zev Lee"
-DESCRIPTION="A simple password generator based on a user-supplied word list."
