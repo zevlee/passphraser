@@ -210,8 +210,8 @@ class Window(Gtk.ApplicationWindow):
         self.password.set_text("")
         self.password_length.set_text("")
         copyfile(
-            join(Utils.CONFIG_DIR, "default.json"),
-            join(Utils.CONFIG_DIR, "settings.json")
+            join(CONF, "default.json"),
+            join(CONF, "settings.json")
         )
 
     def on_file_clicked(self, button):
@@ -232,7 +232,7 @@ class Window(Gtk.ApplicationWindow):
             "_Open", Gtk.ResponseType.OK,
         )
         dialog.set_current_folder(
-            Gio.File.new_for_path(join(Utils.CONFIG_DIR, "wordlists"))
+            Gio.File.new_for_path(join(CONF, "wordlists"))
         )
         dialog.connect("response", self._select_file)
         dialog.show()
@@ -278,7 +278,7 @@ class Window(Gtk.ApplicationWindow):
         ):
             self.config[k] = v
         if Utils.read_config("settings.json") != self.config:
-            with open(join(Utils.CONFIG_DIR, "settings.json"), "w") as c:
+            with open(join(CONF, "settings.json"), "w") as c:
                 c.write(dumps(self.config))
                 c.close()
 

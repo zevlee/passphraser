@@ -226,7 +226,7 @@ class Preferences(Gtk.Window):
         :type button: Gtk.Button
         """
         # Save preferences
-        with open(join(Utils.CONFIG_DIR, "settings.json"), "w") as c:
+        with open(join(CONF, "settings.json"), "w") as c:
             for k, v in zip(Utils.SYMBOLS, self.symbols):
                 self.config[k] = v.get_active()
             self.config["app"] = self.app.get_active()
@@ -246,7 +246,7 @@ class Preferences(Gtk.Window):
         # Save settings to default
         if self.default.get_active():
             copyfile(
-                join(Utils.CONFIG_DIR, "settings.json"),
-                join(Utils.CONFIG_DIR, "default.json")
+                join(CONF, "settings.json"),
+                join(CONF, "default.json")
             )
         self.destroy()

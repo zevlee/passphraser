@@ -39,20 +39,20 @@ class Application(Adw.Application):
         Gtk.Application.do_startup(self)
         
         # Restore any missing files and folders
-        if not exists(Utils.CONFIG_DIR):
-            mkdir(Utils.CONFIG_DIR)
-        if not exists(join(Utils.CONFIG_DIR, "wordlists")):
+        if not exists(CONF):
+            mkdir(CONF)
+        if not exists(join(CONF, "wordlists")):
             copytree(
                 join(APPDIR, "wordlists"),
-                join(Utils.CONFIG_DIR, "wordlists")
+                join(CONF, "wordlists")
             )
-        if not exists(join(Utils.CONFIG_DIR, "settings.json")):
-            with open(join(Utils.CONFIG_DIR, "settings.json"), "w") as s:
+        if not exists(join(CONF, "settings.json")):
+            with open(join(CONF, "settings.json"), "w") as s:
                 default = Utils.read_config("default.json")
                 s.write(dumps(default))
                 s.close()
-        if not exists(join(Utils.CONFIG_DIR, "default.json")):
-            with open(join(Utils.CONFIG_DIR, "default.json"), "w") as d:
+        if not exists(join(CONF, "default.json")):
+            with open(join(CONF, "default.json"), "w") as d:
                 d.write(dumps(Utils.DEFAULT))
                 d.close()
         

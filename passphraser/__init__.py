@@ -11,15 +11,14 @@ APPNAME = "Passphraser"
 ID = "me.zevlee.Passphraser"
 # Application directory
 APPDIR = dirname(dirname(__file__))
+# Config directory
+if system() == "Darwin":
+    CONF = join(expanduser("~/Library/Application Support"), ID)
+else:
+    CONF = join(GLib.get_user_config_dir(), APPNAME)
 
 
 class Utils:
-    # Config directory
-    if system() == "Darwin":
-        CONFIG_DIR = join(expanduser("~/Library/Application Support"), ID)
-    else:
-        CONFIG_DIR = join(GLib.get_user_config_dir(), APPNAME)
-
     # List of possible symbols to add to password
     SYMBOLS = [
         "~", "`", "!", "@", "#", "$",
@@ -32,7 +31,7 @@ class Utils:
 
     # Default parameters
     DEFAULT = {
-        "lst": join(CONFIG_DIR, "wordlists", "eff_large.txt"),
+        "lst": join(CONF, "wordlists", "eff_large.txt"),
         "mnw": 3,
         "mxw": 9,
         "wrd": 6,
@@ -58,7 +57,7 @@ class Utils:
         :rtype: dict
         """
         try:
-            config = loads(open(join(Utils.CONFIG_DIR, filename), "r").read())
+            config = loads(open(join(CONF, filename), "r").read())
         except FileNotFoundError:
             config = Utils.DEFAULT
         return config
@@ -92,6 +91,6 @@ class Utils:
                 overwrite = True
         # Overwrite filename if there is an error
         if overwrite:
-            with open(join(Utils.CONFIG_DIR, filename), "w") as c:
+            with open(join(CONF, filename), "w") as c:
                 c.write(dumps(config))
                 c.close()
