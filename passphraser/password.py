@@ -1,6 +1,6 @@
-from . import *
 from secrets import choice, randbelow
 from re import split
+from . import *
 
 
 class Password:

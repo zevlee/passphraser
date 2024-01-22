@@ -1,5 +1,3 @@
-from . import *
-from .window import Window
 from os import mkdir
 from os.path import join, exists
 from shutil import copytree
@@ -8,6 +6,8 @@ from json import dumps
 from gi import require_versions
 require_versions({"Gtk": "4.0", "Adw": "1"})
 from gi.repository import Gtk, Gdk, Gio, GLib, Adw
+from . import *
+from .window import Window
 
 
 class Application(Adw.Application):

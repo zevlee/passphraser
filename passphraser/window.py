@@ -1,7 +1,3 @@
-from . import *
-from .password import Password
-from .about import About
-from .preferences import Preferences
 from os.path import join
 from shutil import copyfile
 from platform import system
@@ -9,6 +5,10 @@ from json import dumps
 from gi import require_versions
 require_versions({"Gtk": "4.0", "Adw": "1"})
 from gi.repository import Gtk, Gio
+from . import *
+from .about import About
+from .password import Password
+from .preferences import Preferences
 
 
 class Window(Gtk.ApplicationWindow):
