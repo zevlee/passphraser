@@ -42,24 +42,24 @@ for symbol in SYMBOLS:
     DEFAULT[symbol] = True
 
 
-class Utils:
-    @staticmethod
-    def read_config(filename):
-        """
-        Given a filename `filename`, return the configuration dictionary or
-        the default configuration if `filename` is not found
-        
-        :param filename: Filename
-        :type filename: str
-        :return: Configuration dictionary
-        :rtype: dict
-        """
-        try:
-            config = loads(open(join(CONF, filename), "r").read())
-        except FileNotFoundError:
-            config = DEFAULT
-        return config
+def read_config(filename):
+    """
+    Given a filename `filename`, return the configuration dictionary or
+    the default configuration if `filename` is not found
     
+    :param filename: Filename
+    :type filename: str
+    :return: Configuration dictionary
+    :rtype: dict
+    """
+    try:
+        config = loads(open(join(CONF, filename), "r").read())
+    except FileNotFoundError:
+        config = DEFAULT
+    return config
+
+
+class Utils:
     @staticmethod
     def validate_config(filename, default="RESET"):
         """
@@ -72,8 +72,8 @@ class Utils:
         :type default: str
         """
         overwrite = False
-        default_config = Utils.read_config(default)
-        config = Utils.read_config(filename)
+        default_config = read_config(default)
+        config = read_config(filename)
         # Remove invalid keys
         for key in [k for k in config.keys() if k not in DEFAULT.keys()]:
             config.pop(key)

@@ -81,7 +81,7 @@ class Window(Gtk.ApplicationWindow):
         )
 
         # Open stored preferences
-        self.config = Utils.read_config("settings.json")
+        self.config = read_config("settings.json")
 
         # Word list label, button, and entry field
         lst_label = Gtk.Label(halign=Gtk.Align.START)
@@ -196,7 +196,7 @@ class Window(Gtk.ApplicationWindow):
         :param param: Parameter
         :type param: NoneType
         """
-        default = Utils.read_config("default.json")
+        default = read_config("default.json")
         for k, v in zip(
             ["lst", "mnw", "mxw", "wrd", "sep"],
             [self.lst, self.mnw, self.mxw, self.wrd, self.sep]
@@ -255,7 +255,7 @@ class Window(Gtk.ApplicationWindow):
         Gather parameters then generate the password
         """
         # Open stored preferences
-        self.config = Utils.read_config("settings.json")
+        self.config = read_config("settings.json")
         lst = self.lst.get_text()
         mnw = int(self.mnw.get_text())
         mxw = int(self.mxw.get_text())
@@ -277,7 +277,7 @@ class Window(Gtk.ApplicationWindow):
             [lst, mnw, mxw, wrd, sep, cap, num, sym]
         ):
             self.config[k] = v
-        if Utils.read_config("settings.json") != self.config:
+        if read_config("settings.json") != self.config:
             with open(join(CONF, "settings.json"), "w") as c:
                 c.write(dumps(self.config))
                 c.close()
@@ -289,7 +289,7 @@ class Window(Gtk.ApplicationWindow):
         :param button: Button
         :type button: Gtk.Button
         """
-        config = Utils.read_config("settings.json")
+        config = read_config("settings.json")
         if not config["dbg"]:
             dialog = Gtk.MessageDialog(
                 transient_for=self,

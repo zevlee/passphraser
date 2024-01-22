@@ -48,7 +48,7 @@ class Application(Adw.Application):
             )
         if not exists(join(CONF, "settings.json")):
             with open(join(CONF, "settings.json"), "w") as s:
-                default = Utils.read_config("default.json")
+                default = read_config("default.json")
                 s.write(dumps(default))
                 s.close()
         if not exists(join(CONF, "default.json")):
@@ -61,7 +61,7 @@ class Application(Adw.Application):
         Utils.validate_config("settings.json", "default.json")
 
         # Set color scheme
-        appearance = Utils.read_config("settings.json")["app"]
+        appearance = read_config("settings.json")["app"]
         if appearance:
             self.get_style_manager().set_color_scheme(
                 Adw.ColorScheme.FORCE_DARK

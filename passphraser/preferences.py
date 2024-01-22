@@ -55,7 +55,7 @@ class Preferences(Gtk.Window):
         )
 
         # Open stored preferences
-        self.config = Utils.read_config("settings.json")
+        self.config = read_config("settings.json")
 
         # Included symbols label
         symbols_label = Gtk.Label(halign=Gtk.Align.START)
