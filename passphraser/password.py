@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 from . import Utils
+from . import *
 from secrets import choice, randbelow
 from re import split
 

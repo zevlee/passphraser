@@ -25,25 +25,24 @@ SYMBOLS = [
     "\"", "'", "<", ",", ">", ".",
     "?", "/", " "
 ]
+# Default parameters
+DEFAULT = {
+    "lst": join(CONF, "wordlists", "eff_large.txt"),
+    "mnw": 3,
+    "mxw": 9,
+    "wrd": 6,
+    "sep": "-",
+    "cap": True,
+    "num": True,
+    "sym": False,
+    "app": True,
+    "dbg": False
+}
+for symbol in SYMBOLS:
+    DEFAULT[symbol] = True
 
 
 class Utils:
-    # Default parameters
-    DEFAULT = {
-        "lst": join(CONF, "wordlists", "eff_large.txt"),
-        "mnw": 3,
-        "mxw": 9,
-        "wrd": 6,
-        "sep": "-",
-        "cap": True,
-        "num": True,
-        "sym": False,
-        "app": True,
-        "dbg": False
-    }
-    for symbol in SYMBOLS:
-        DEFAULT[symbol] = True
-
     @staticmethod
     def read_config(filename):
         """
@@ -58,7 +57,7 @@ class Utils:
         try:
             config = loads(open(join(CONF, filename), "r").read())
         except FileNotFoundError:
-            config = Utils.DEFAULT
+            config = DEFAULT
         return config
     
     @staticmethod
@@ -76,11 +75,11 @@ class Utils:
         default_config = Utils.read_config(default)
         config = Utils.read_config(filename)
         # Remove invalid keys
-        for key in [k for k in config.keys() if k not in Utils.DEFAULT.keys()]:
+        for key in [k for k in config.keys() if k not in DEFAULT.keys()]:
             config.pop(key)
             overwrite = True
         # Add missing keys
-        for key in [k for k in Utils.DEFAULT.keys() if k not in config.keys()]:
+        for key in [k for k in DEFAULT.keys() if k not in config.keys()]:
             config[key] = default_config[key]
             overwrite = True
         # Validate config options

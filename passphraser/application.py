@@ -53,7 +53,7 @@ class Application(Adw.Application):
                 s.close()
         if not exists(join(CONF, "default.json")):
             with open(join(CONF, "default.json"), "w") as d:
-                d.write(dumps(Utils.DEFAULT))
+                d.write(dumps(DEFAULT))
                 d.close()
         
         # Validate config files
