@@ -1,15 +1,13 @@
-#!/usr/bin/env python3
-
 from os.path import dirname, join, expanduser
 from platform import system
 from json import loads, dumps
 from gi.repository import GLib
 
+# Application version
+__version__ = "1.0.0"
+
 
 class Utils:
-    """
-    Utilities
-    """
     # Application name
     NAME = "Passphraser"
 
@@ -18,9 +16,6 @@ class Utils:
 
     # Application directory
     APP_DIR = dirname(dirname(__file__))
-
-    # Application version
-    VERSION = open(join(APP_DIR, "VERSION")).read()
 
     # Config directory
     if system() == "Darwin":

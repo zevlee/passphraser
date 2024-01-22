@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
-from . import Utils
+from . import __version__, Utils
+from . import *
 from os.path import join
 from platform import system
 from gi import require_versions
@@ -23,7 +24,7 @@ class About(Gtk.AboutDialog):
             modal=True,
             transient_for=parent,
             program_name=Utils.NAME,
-            version=Utils.VERSION,
+            version=__version__,
             copyright="Copyright © 2021-2023 Zev Lee",
             license_type=Gtk.License.MIT_X11,
             website="https://github.com/zevlee/passphraser",
