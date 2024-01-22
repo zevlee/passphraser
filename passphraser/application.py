@@ -43,7 +43,7 @@ class Application(Adw.Application):
             mkdir(Utils.CONFIG_DIR)
         if not exists(join(Utils.CONFIG_DIR, "wordlists")):
             copytree(
-                join(Utils.APP_DIR, "wordlists"),
+                join(APPDIR, "wordlists"),
                 join(Utils.CONFIG_DIR, "wordlists")
             )
         if not exists(join(Utils.CONFIG_DIR, "settings.json")):
@@ -77,7 +77,7 @@ class Application(Adw.Application):
                 Gdk.Display.get_default()
             )
             icon_theme.add_search_path(
-                join(Utils.APP_DIR, "usr", "share", "icons")
+                join(APPDIR, "usr", "share", "icons")
             )
 
     def do_activate(self):

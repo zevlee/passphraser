@@ -9,12 +9,11 @@ __version__ = "1.0.0"
 APPNAME = "Passphraser"
 # Application ID
 ID = "me.zevlee.Passphraser"
+# Application directory
+APPDIR = dirname(dirname(__file__))
 
 
 class Utils:
-    # Application directory
-    APP_DIR = dirname(dirname(__file__))
-
     # Config directory
     if system() == "Darwin":
         CONFIG_DIR = join(expanduser("~/Library/Application Support"), ID)

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 from . import Utils
+from . import *
 from .password import Password
 from .about import About
 from .preferences import Preferences
@@ -37,7 +38,7 @@ class Window(Gtk.ApplicationWindow):
 
         # Build menu
         builder = Gtk.Builder.new_from_file(
-            join(Utils.APP_DIR, "gui", "menu.xml")
+            join(APPDIR, "gui", "menu.xml")
         )
         menu = builder.get_object("app-menu")
         menu_button = Gtk.MenuButton()
