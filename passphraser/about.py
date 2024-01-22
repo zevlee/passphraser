@@ -1,11 +1,10 @@
-#!/usr/bin/env python3
-
-from .utils import Utils
 from os.path import join
 from platform import system
 from gi import require_versions
 require_versions({"Gtk": "4.0", "Adw": "1"})
 from gi.repository import Gtk
+from . import __version__
+from . import *
 
 
 class About(Gtk.AboutDialog):
@@ -22,8 +21,8 @@ class About(Gtk.AboutDialog):
         super().__init__(
             modal=True,
             transient_for=parent,
-            program_name=Utils.NAME,
-            version=Utils.VERSION,
+            program_name=APPNAME,
+            version=__version__,
             copyright="Copyright © 2021-2023 Zev Lee",
             license_type=Gtk.License.MIT_X11,
             website="https://github.com/zevlee/passphraser",
@@ -43,7 +42,7 @@ class About(Gtk.AboutDialog):
         self.set_titlebar(header)
 
         # Set up logo
-        filename = join(Utils.APP_DIR, f"{Utils.ID}.svg")
+        filename = join(APPDIR, f"{ID}.svg")
         logo = Gtk.Image.new_from_file(filename)
 
         # Add logo

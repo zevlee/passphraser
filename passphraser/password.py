@@ -1,8 +1,6 @@
-#!/usr/bin/env python3
-
-from .utils import Utils
 from secrets import choice, randbelow
 from re import split
+from . import *
 
 
 class Password:
@@ -73,7 +71,7 @@ class Password:
         :return: List of symbols to use in password
         :rtype: list
         """
-        return [symbol for symbol in Utils.SYMBOLS if self.config[symbol]]
+        return [symbol for symbol in SYMBOLS if self.config[symbol]]
 
     def _add_num_sym(self, sym_list, num_ind, sym_ind, ind):
         """

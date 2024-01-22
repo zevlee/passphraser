@@ -1,9 +1,3 @@
-#!/usr/bin/env python3
-
-from .utils import Utils
-from .password import Password
-from .about import About
-from .preferences import Preferences
 from os.path import join
 from shutil import copyfile
 from platform import system
@@ -11,6 +5,10 @@ from json import dumps
 from gi import require_versions
 require_versions({"Gtk": "4.0", "Adw": "1"})
 from gi.repository import Gtk, Gio
+from . import *
+from .about import About
+from .password import Password
+from .preferences import Preferences
 
 
 class Window(Gtk.ApplicationWindow):
@@ -30,14 +28,14 @@ class Window(Gtk.ApplicationWindow):
         )
 
         # Add icon
-        self.set_icon_name(Utils.ID)
+        self.set_icon_name(ID)
 
         # Set up header
         header = Gtk.HeaderBar()
 
         # Build menu
         builder = Gtk.Builder.new_from_file(
-            join(Utils.APP_DIR, "gui", "menu.xml")
+            join(APPDIR, "gui", "menu.xml")
         )
         menu = builder.get_object("app-menu")
         menu_button = Gtk.MenuButton()
@@ -80,7 +78,7 @@ class Window(Gtk.ApplicationWindow):
         )
 
         # Open stored preferences
-        self.config = Utils.read_config("settings.json")
+        self.config = read_config("settings.json")
 
         # Word list label, button, and entry field
         lst_label = Gtk.Label(halign=Gtk.Align.START)
@@ -195,7 +193,7 @@ class Window(Gtk.ApplicationWindow):
         :param param: Parameter
         :type param: NoneType
         """
-        default = Utils.read_config("default.json")
+        default = read_config("default.json")
         for k, v in zip(
             ["lst", "mnw", "mxw", "wrd", "sep"],
             [self.lst, self.mnw, self.mxw, self.wrd, self.sep]
@@ -209,8 +207,8 @@ class Window(Gtk.ApplicationWindow):
         self.password.set_text("")
         self.password_length.set_text("")
         copyfile(
-            join(Utils.CONFIG_DIR, "default.json"),
-            join(Utils.CONFIG_DIR, "settings.json")
+            join(CONF, "default.json"),
+            join(CONF, "settings.json")
         )
 
     def on_file_clicked(self, button):
@@ -231,7 +229,7 @@ class Window(Gtk.ApplicationWindow):
             "_Open", Gtk.ResponseType.OK,
         )
         dialog.set_current_folder(
-            Gio.File.new_for_path(join(Utils.CONFIG_DIR, "wordlists"))
+            Gio.File.new_for_path(join(CONF, "wordlists"))
         )
         dialog.connect("response", self._select_file)
         dialog.show()
@@ -254,7 +252,7 @@ class Window(Gtk.ApplicationWindow):
         Gather parameters then generate the password
         """
         # Open stored preferences
-        self.config = Utils.read_config("settings.json")
+        self.config = read_config("settings.json")
         lst = self.lst.get_text()
         mnw = int(self.mnw.get_text())
         mxw = int(self.mxw.get_text())
@@ -276,8 +274,8 @@ class Window(Gtk.ApplicationWindow):
             [lst, mnw, mxw, wrd, sep, cap, num, sym]
         ):
             self.config[k] = v
-        if Utils.read_config("settings.json") != self.config:
-            with open(join(Utils.CONFIG_DIR, "settings.json"), "w") as c:
+        if read_config("settings.json") != self.config:
+            with open(join(CONF, "settings.json"), "w") as c:
                 c.write(dumps(self.config))
                 c.close()
 
@@ -288,7 +286,7 @@ class Window(Gtk.ApplicationWindow):
         :param button: Button
         :type button: Gtk.Button
         """
-        config = Utils.read_config("settings.json")
+        config = read_config("settings.json")
         if not config["dbg"]:
             dialog = Gtk.MessageDialog(
                 transient_for=self,

@@ -1,6 +1,3 @@
-#!/usr/bin/env python3
-
-from .utils import Utils
 from os.path import join
 from shutil import copyfile
 from platform import system
@@ -8,6 +5,7 @@ from json import dumps
 from gi import require_versions
 require_versions({"Gtk": "4.0", "Adw": "1"})
 from gi.repository import Gtk, Adw
+from . import *
 
 
 class Preferences(Gtk.Window):
@@ -54,7 +52,7 @@ class Preferences(Gtk.Window):
         )
 
         # Open stored preferences
-        self.config = Utils.read_config("settings.json")
+        self.config = read_config("settings.json")
 
         # Included symbols label
         symbols_label = Gtk.Label(halign=Gtk.Align.START)
@@ -226,8 +224,8 @@ class Preferences(Gtk.Window):
         :type button: Gtk.Button
         """
         # Save preferences
-        with open(join(Utils.CONFIG_DIR, "settings.json"), "w") as c:
-            for k, v in zip(Utils.SYMBOLS, self.symbols):
+        with open(join(CONF, "settings.json"), "w") as c:
+            for k, v in zip(SYMBOLS, self.symbols):
                 self.config[k] = v.get_active()
             self.config["app"] = self.app.get_active()
             self.config["dbg"] = self.dbg.get_active()
@@ -246,7 +244,7 @@ class Preferences(Gtk.Window):
         # Save settings to default
         if self.default.get_active():
             copyfile(
-                join(Utils.CONFIG_DIR, "settings.json"),
-                join(Utils.CONFIG_DIR, "default.json")
+                join(CONF, "settings.json"),
+                join(CONF, "default.json")
             )
         self.destroy()
