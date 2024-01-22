@@ -227,7 +227,7 @@ class Preferences(Gtk.Window):
         """
         # Save preferences
         with open(join(CONF, "settings.json"), "w") as c:
-            for k, v in zip(Utils.SYMBOLS, self.symbols):
+            for k, v in zip(SYMBOLS, self.symbols):
                 self.config[k] = v.get_active()
             self.config["app"] = self.app.get_active()
             self.config["dbg"] = self.dbg.get_active()

@@ -16,19 +16,18 @@ if system() == "Darwin":
     CONF = join(expanduser("~/Library/Application Support"), ID)
 else:
     CONF = join(GLib.get_user_config_dir(), APPNAME)
+# List of possible symbols to add to password
+SYMBOLS = [
+    "~", "`", "!", "@", "#", "$",
+    "%", "^", "&", "*", "(", ")",
+    "_", "-", "+", "=", "{", "[",
+    "}", "]", "|", "\\", ":", ";",
+    "\"", "'", "<", ",", ">", ".",
+    "?", "/", " "
+]
 
 
 class Utils:
-    # List of possible symbols to add to password
-    SYMBOLS = [
-        "~", "`", "!", "@", "#", "$",
-        "%", "^", "&", "*", "(", ")",
-        "_", "-", "+", "=", "{", "[",
-        "}", "]", "|", "\\", ":", ";",
-        "\"", "'", "<", ",", ">", ".",
-        "?", "/", " "
-    ]
-
     # Default parameters
     DEFAULT = {
         "lst": join(CONF, "wordlists", "eff_large.txt"),
