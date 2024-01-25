@@ -161,6 +161,11 @@ class Build:
             f"{self.py} -m pydeployment -y -o {self.args.OUTDIR} build.spec",
             self.logger.info
         )
+        requirements = join(self.srcdir, "requirements.txt")
+        self._run_command(
+            f"{self.py} -m pip install -r {requirements}",
+            self.logger.info
+        )
         self.logger.debug("Finished running pydeploy")
         return 0
 
