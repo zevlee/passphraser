@@ -17,7 +17,7 @@
   <launchable type="desktop-id">org.example.HelloWorldGTK.desktop</launchable>
   <screenshots>
     <screenshot type="default">
-      <image>https://publicdomainvectors.org/photos/kawaii_earth.png</image>
+      <image>https://github.com/zevlee/passphraser/blob/main/screenshots/screenshot.png</image>
     </screenshot>
   </screenshots>
 </component>
