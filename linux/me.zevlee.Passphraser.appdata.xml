@@ -1,20 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
-  <id>org.example.HelloWorldGTK</id>
+  <id>me.zevlee.Passphraser</id>
   
-  <name>Hello World</name>
-  <summary>Hello World GTK</summary>
+  <name>Passphraser</name>
+  <summary>Phrase-based password generator that can use your own list of words</summary>
   
   <metadata_license>MIT</metadata_license>
   <project_license>MIT</project_license>
   
   <description>
     <p>
-      Hello World GTK
+      Passphraser is a password generator that accepts any text file and treats each word as a possible input. So a text file like this...
+    </p>
+    <pre>
+      <code>
+        alpha bravo
+        charlie delta echo
+        foxtrot
+      </code>
+    </pre>
+    <p>
+      ...will result in a generated password like this with the default settings.
+    </p>
+    <pre>
+      <code>
+        Delta-Charlie-6-Bravo-Charlie-Alpha-Echo
+      </code>
+    </pre>
+    <p>
+      The included word lists are derived from the EFF's word lists found here: https://www.eff.org/deeplinks/2016/07/new-wordlists-random-passphrases
     </p>
   </description>
   
-  <launchable type="desktop-id">org.example.HelloWorldGTK.desktop</launchable>
+  <launchable type="desktop-id">me.zevlee.Passphraser.desktop</launchable>
   <screenshots>
     <screenshot type="default">
       <image>https://github.com/zevlee/passphraser/blob/main/screenshots/screenshot.png</image>
