@@ -4,7 +4,7 @@ from json import loads, dumps
 from gi.repository import GLib
 
 # Application version
-__version__ = "1.0.0"
+__version__ = "1.0.3"
 # Application name
 APPNAME = "Passphraser"
 # Application ID
