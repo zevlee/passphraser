@@ -12,30 +12,33 @@
     <p>
       Passphraser is a password generator that accepts any text file and treats each word as a possible input. So a text file like this...
     </p>
-    <pre>
+    <p>
       <code>
         alpha bravo
         charlie delta echo
         foxtrot
       </code>
-    </pre>
+    </p>
     <p>
       ...will result in a generated password like this with the default settings.
     </p>
-    <pre>
+    <p>
       <code>
         Delta-Charlie-6-Bravo-Charlie-Alpha-Echo
       </code>
-    </pre>
+    </p>
     <p>
-      The included word lists are derived from the EFF's word lists found here: https://www.eff.org/deeplinks/2016/07/new-wordlists-random-passphrases
+      The included word lists are derived from the EFF's New Wordlists for Random Passphrases
     </p>
   </description>
   
   <launchable type="desktop-id">me.zevlee.Passphraser.desktop</launchable>
   <screenshots>
     <screenshot type="default">
-      <image>https://github.com/zevlee/passphraser/blob/main/screenshots/screenshot.png</image>
+      <image>https://raw.githubusercontent.com/zevlee/passphraser/refs/heads/main/screenshots/screenshot.png</image>
     </screenshot>
   </screenshots>
+  <developer_name>Zev Lee</developer_name>
+  <url type="homepage">https://github.com/zevlee/passphraser</url>
+  <url type="bugtracker">https://github.com/zevlee/passphraser/issues</url>
 </component>
