@@ -2,6 +2,7 @@ from os.path import dirname, join, expanduser
 from platform import system
 from json import loads, dumps
 from gi.repository import GLib
+from platformdirs import user_config_dir
 
 # Application version
 __version__ = "1.0.3"
@@ -12,10 +13,7 @@ ID = "me.zevlee.Passphraser"
 # Application directory
 APPDIR = dirname(dirname(__file__))
 # Config directory
-if system() == "Darwin":
-    CONF = join(expanduser("~/Library/Application Support"), ID)
-else:
-    CONF = join(GLib.get_user_config_dir(), APPNAME)
+CONF = user_config_dir(APPNAME)
 # List of possible symbols to add to password
 SYMBOLS = [
     "~", "`", "!", "@", "#", "$",
