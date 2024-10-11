@@ -5,7 +5,7 @@ from gi.repository import GLib
 from platformdirs import user_config_dir
 
 # Application version
-__version__ = "1.0.3"
+__version__ = "1.0.5"
 # Application name
 APPNAME = "Passphraser"
 # Application ID
