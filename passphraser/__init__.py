@@ -4,7 +4,7 @@ from os.path import dirname, join
 from platformdirs import user_config_dir
 
 # Application version
-__version__ = "1.0.5"
+__version__ = "1.0.6"
 # Application name
 APPNAME = "Passphraser"
 # Application ID
