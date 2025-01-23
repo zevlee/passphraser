@@ -45,15 +45,15 @@ class Application(Adw.Application):
                 join(APPDIR, "wordlists"),
                 join(CONF, "wordlists")
             )
+        if not exists(join(CONF, "default.json")):
+            with open(join(CONF, "default.json"), "w") as d:
+                d.write(dumps(DEFAULT))
+                d.close()
         if not exists(join(CONF, "settings.json")):
             with open(join(CONF, "settings.json"), "w") as s:
                 default = read_config("default.json")
                 s.write(dumps(default))
                 s.close()
-        if not exists(join(CONF, "default.json")):
-            with open(join(CONF, "default.json"), "w") as d:
-                d.write(dumps(DEFAULT))
-                d.close()
         
         # Validate config files
         validate_config("default.json")
