@@ -1,5 +1,6 @@
-from secrets import choice, randbelow
 from re import split
+from secrets import choice, randbelow
+
 from . import *
 
 

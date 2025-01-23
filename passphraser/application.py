@@ -1,11 +1,13 @@
-from os import mkdir
-from os.path import join, exists
-from shutil import copytree
-from platform import system
 from json import dumps
+from os import mkdir
+from os.path import exists, join
+from platform import system
+from shutil import copytree
+
 from gi import require_versions
 require_versions({"Gtk": "4.0", "Adw": "1"})
 from gi.repository import Gtk, Gdk, Gio, GLib, Adw
+
 from . import *
 from .window import Window
 
