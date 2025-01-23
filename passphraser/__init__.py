@@ -1,7 +1,6 @@
-from os.path import dirname, join, expanduser
-from platform import system
-from json import loads, dumps
-from gi.repository import GLib
+from json import dumps, loads
+from os.path import dirname, join
+
 from platformdirs import user_config_dir
 
 # Application version

@@ -1,8 +1,10 @@
 from os.path import join
 from platform import system
+
 from gi import require_versions
 require_versions({"Gtk": "4.0", "Adw": "1"})
 from gi.repository import Gtk
+
 from . import __version__
 from . import *
 
